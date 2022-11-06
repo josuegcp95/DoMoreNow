@@ -29,7 +29,6 @@ class AddEditTaskVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-//        title = "Add Task"
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                            target: self,
                                            action: #selector(cancelButtonTapped))
@@ -43,7 +42,6 @@ class AddEditTaskVC: UIViewController {
     
     func configureNameTextField() {
         view.addSubview(nameTextField)
-//        nameTextField.placeholder = "Enter name"
         nameTextField.returnKeyType = .continue
         
         NSLayoutConstraint.activate([
@@ -56,7 +54,6 @@ class AddEditTaskVC: UIViewController {
     
     func configureDurationTextField() {
         view.addSubview(timeTextField)
-//        timeTextField.placeholder = "Enter time"
         timeTextField.keyboardType = .numberPad
         
         NSLayoutConstraint.activate([

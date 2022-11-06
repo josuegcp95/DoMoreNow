@@ -37,7 +37,18 @@
 		3337D84929088F8700BFFD32 /* DMEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */; };
 		3337D84B290CBBA000BFFD32 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84A290CBBA000BFFD32 /* String+Ext.swift */; };
 		3397A882291602FC0096EEA4 /* AddEditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */; };
+		3397A88A2916CF990096EEA4 /* DoMoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A8892916CF990096EEA4 /* DoMoreTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3397A88B2916CF990096EEA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33098B3A29008E8700DA02B0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33098B4129008E8700DA02B0;
+			remoteInfo = DoMore;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		33098B4229008E8700DA02B0 /* DoMore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoMore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,10 +83,19 @@
 		3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMEmptyStateView.swift; sourceTree = "<group>"; };
 		3337D84A290CBBA000BFFD32 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskVC.swift; sourceTree = "<group>"; };
+		3397A8872916CF990096EEA4 /* DoMoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoMoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3397A8892916CF990096EEA4 /* DoMoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoMoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		33098B3F29008E8700DA02B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3397A8842916CF990096EEA4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -89,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				33098B4429008E8700DA02B0 /* DoMore */,
+				3397A8882916CF990096EEA4 /* DoMoreTests */,
 				33098B4329008E8700DA02B0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				33098B4229008E8700DA02B0 /* DoMore.app */,
+				3397A8872916CF990096EEA4 /* DoMoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +273,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3397A8882916CF990096EEA4 /* DoMoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				3397A8892916CF990096EEA4 /* DoMoreTests.swift */,
+			);
+			path = DoMoreTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -271,6 +301,24 @@
 			productReference = 33098B4229008E8700DA02B0 /* DoMore.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3397A8862916CF990096EEA4 /* DoMoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3397A88D2916CF990096EEA4 /* Build configuration list for PBXNativeTarget "DoMoreTests" */;
+			buildPhases = (
+				3397A8832916CF990096EEA4 /* Sources */,
+				3397A8842916CF990096EEA4 /* Frameworks */,
+				3397A8852916CF990096EEA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3397A88C2916CF990096EEA4 /* PBXTargetDependency */,
+			);
+			name = DoMoreTests;
+			productName = DoMoreTests;
+			productReference = 3397A8872916CF990096EEA4 /* DoMoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -278,11 +326,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					33098B4129008E8700DA02B0 = {
 						CreatedOnToolsVersion = 14.0.1;
+					};
+					3397A8862916CF990096EEA4 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 33098B4129008E8700DA02B0;
 					};
 				};
 			};
@@ -300,6 +352,7 @@
 			projectRoot = "";
 			targets = (
 				33098B4129008E8700DA02B0 /* DoMore */,
+				3397A8862916CF990096EEA4 /* DoMoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +364,13 @@
 			files = (
 				33098B5229008E8900DA02B0 /* LaunchScreen.storyboard in Resources */,
 				33098B4F29008E8900DA02B0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3397A8852916CF990096EEA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +412,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3397A8832916CF990096EEA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3397A88A2916CF990096EEA4 /* DoMoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3397A88C2916CF990096EEA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33098B4129008E8700DA02B0 /* DoMore */;
+			targetProxy = 3397A88B2916CF990096EEA4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		33098B5029008E8900DA02B0 /* LaunchScreen.storyboard */ = {
@@ -546,6 +622,44 @@
 			};
 			name = Release;
 		};
+		3397A88E2916CF990096EEA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B33C68V2AN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DoMore.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DoMore";
+			};
+			name = Debug;
+		};
+		3397A88F2916CF990096EEA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B33C68V2AN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DoMore.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DoMore";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -563,6 +677,15 @@
 			buildConfigurations = (
 				33098B5729008E8900DA02B0 /* Debug */,
 				33098B5829008E8900DA02B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3397A88D2916CF990096EEA4 /* Build configuration list for PBXNativeTarget "DoMoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3397A88E2916CF990096EEA4 /* Debug */,
+				3397A88F2916CF990096EEA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

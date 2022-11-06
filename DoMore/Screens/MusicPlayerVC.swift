@@ -178,10 +178,10 @@ class MusicPlayerVC: UIViewController {
     
     @objc func stateDidChange() {
         let secondsToDelay = 0.5
-        perform(#selector(delayedFunction), with: nil, afterDelay: secondsToDelay)
+        perform(#selector(remotePlayPause), with: nil, afterDelay: secondsToDelay)
     }
     
-    @objc func delayedFunction() {
+    @objc func remotePlayPause() {
         if musicPlayer.playbackState == .paused {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             timerValve = true
@@ -264,19 +264,19 @@ extension MusicPlayerVC {
         return timeString
     }
     
-    func setTimerLabel(_ val: Int) {
-        let time = secondsToMinutesSeconds(val)
+    func setTimerLabel(_ sec: Int) {
+        let time = secondsToMinutesSeconds(sec)
         let timeString = makeTimeString(min: time.0, sec: time.1)
         timerLabel.text = timeString
     }
     
-    func setSongDurationLabel(_ val: Int) {
-        let time = secondsToMinutesSeconds(val)
+    func setSongDurationLabel(_ sec: Int) {
+        let time = secondsToMinutesSeconds(sec)
         let timeString = makeTimeString(min: time.0, sec: time.1)
         songDuration.text = timeString
     }
     
-    private func updateSongDurationLabel() {
+    func updateSongDurationLabel() {
         songSeconds = Int(musicPlayer.nowPlayingItem!.playbackDuration)
         setSongDurationLabel(songSeconds ?? 0)
     }
