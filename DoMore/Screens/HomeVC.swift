@@ -50,8 +50,8 @@ class HomeVC: UIViewController {
         destVC.delegate = self
         destVC.state = true
         destVC.title = "Add Task"
-        destVC.nameTextField.placeholder = "Enter name"
-        destVC.timeTextField.placeholder = "Enter time"
+        destVC.nameTextField.placeholder = "Task (name)"
+        destVC.timeTextField.placeholder = "Time (minutes)"
         let navController = UINavigationController(rootViewController: destVC)
         navController.navigationBar.tintColor = .systemPink
         present(navController, animated: true)

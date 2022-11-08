@@ -26,6 +26,8 @@ class SearchCell: UITableViewCell {
     }
         
     func set(song: Item) {
+//        let imageIcon = UIImage(systemName: "music.quarternote.3")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)
+//        artwork.image = imageIcon
         artwork.downloadImage(fromURL: song.imageURL!.absoluteString)
         songName.text = song.name
         artistName.text = song.artist

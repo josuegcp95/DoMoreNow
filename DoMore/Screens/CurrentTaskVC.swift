@@ -137,8 +137,8 @@ class CurrentTaskVC: UIViewController {
         destVC.delegate = self
         destVC.state = false
         destVC.title = "Edit Task"
-        destVC.nameTextField.placeholder = "Enter new name"
-        destVC.timeTextField.placeholder = "Enter new time"
+        destVC.nameTextField.placeholder = "New name"
+        destVC.timeTextField.placeholder = "New time"
         let navController = UINavigationController(rootViewController: destVC)
         navController.navigationBar.tintColor = .systemPink
         present(navController, animated: true)
