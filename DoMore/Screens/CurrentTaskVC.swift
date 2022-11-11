@@ -139,6 +139,8 @@ class CurrentTaskVC: UIViewController {
         destVC.title = "Edit Task"
         destVC.nameTextField.placeholder = "New name"
         destVC.timeTextField.placeholder = "New time"
+        destVC.nameTextField.text = nameLabel.text
+        destVC.timeTextField.text = "\(minutes!)"
         let navController = UINavigationController(rootViewController: destVC)
         navController.navigationBar.tintColor = .systemPink
         present(navController, animated: true)

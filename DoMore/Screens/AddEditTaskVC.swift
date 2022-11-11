@@ -78,14 +78,17 @@ class AddEditTaskVC: UIViewController {
             self.presentDMAlertOnMainThread(title: "Something went wrong", message: DMError.onlyNumbers.rawValue, buttonTitle: "OK")
             return }
         
+        guard let time = Int(timeTextField.text!), time > 0 else {
+            self.presentDMAlertOnMainThread(title: "Something went wrong", message: "Time has to be greater than 0.", buttonTitle: "OK")
+            return }
+    
+        
         if state! {
-            let time = Int(timeTextField.text!)
-            let newTask = Action(name: nameTextField.text!, time: time ?? 0, songs: [])
+            let newTask = Action(name: nameTextField.text!, time: time, songs: [])
             delegate?.didAddNewTask(task: newTask)
             dismiss(animated: true)
         } else {
-            let time = Int(timeTextField.text!)
-            delegate?.didEditCurrentTask(name: nameTextField.text!, time: time ?? 0)
+            delegate?.didEditCurrentTask(name: nameTextField.text!, time: time)
             dismiss(animated: true)
         }
     }
