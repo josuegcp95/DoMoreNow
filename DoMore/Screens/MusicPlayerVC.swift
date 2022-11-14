@@ -209,7 +209,8 @@ class MusicPlayerVC: UIViewController {
                 let content = UNMutableNotificationContent()
                 content.title = "Your task has ended"
                 content.body = "You're doing great!"
-                content.sound = .default
+                let soundName = UNNotificationSoundName("alarm.wav")
+                content.sound = UNNotificationSound(named: soundName)
                 
                 // Trigger
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(sec), repeats: false)
