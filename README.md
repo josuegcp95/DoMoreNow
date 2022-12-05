@@ -10,11 +10,12 @@
 ---
 
 ## Screenshots
-![DoMore app screenshot](https://user-images.githubusercontent.com/82785695/200950108-18abc533-ff7e-45ba-9389-70af526acf77.jpg)
+![DoMore(1)](https://user-images.githubusercontent.com/82785695/205761640-34b26ee5-7f8b-472c-b617-7770baf43ce3.png)
+![DoMore(2)](https://user-images.githubusercontent.com/82785695/205761646-d92312de-4e7c-4b6d-b548-7a62d7dda200.png)
+![DoMore(3)](https://user-images.githubusercontent.com/82785695/205761656-b8c93d9f-3849-4ffc-bdd2-9e5beaf71884.png)
+![DoMore(4)](https://user-images.githubusercontent.com/82785695/205761671-e776deff-a067-4124-8d60-cb3d4438a585.png)
 
-![DoMore app screenshot](https://user-images.githubusercontent.com/82785695/200950135-93e62833-074b-43c2-9c15-4295f662c0d6.jpg)
 
-![DoMore app screenshot](https://user-images.githubusercontent.com/82785695/200950127-a4f81191-6cc4-44b2-848b-0618e542fdd1.jpg)
 
-![DoMore app screenshot](https://user-images.githubusercontent.com/82785695/200950148-263aac5b-d397-48bf-b0d5-576b24b55939.jpg)
+
 
