@@ -148,7 +148,7 @@ class CurrentTaskVC: UIViewController {
     
     @objc func addSongButtonTapped() {
         guard musicSubscription?.canPlayCatalogContent == true else {
-            self.presentDMAlertOnMainThread(title: "Something went wrong", message: DMError.unabletoProceed.rawValue, buttonTitle: "OK")
+            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
             return }
         prepareTracks()
         let destVC = MusicSearchVC()
@@ -161,7 +161,7 @@ class CurrentTaskVC: UIViewController {
     
     @objc func startTaskButtonTapped() {
         guard musicSubscription?.canPlayCatalogContent == true else {
-            self.presentDMAlertOnMainThread(title: "Something went wrong", message: DMError.unabletoProceed.rawValue, buttonTitle: "OK")
+            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
             return }
         prepareTracks()
         prepareImages()
@@ -189,7 +189,7 @@ class CurrentTaskVC: UIViewController {
                     self.updateSubscriptionStatus()
                     return }
                 self.updateSubscriptionStatus()
-                self.presentDMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
             }
         }
     }
@@ -219,7 +219,6 @@ class CurrentTaskVC: UIViewController {
 
     //MARK: Table View Delegates
 extension CurrentTaskVC: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlist.count
     }
@@ -246,7 +245,6 @@ extension CurrentTaskVC: UITableViewDelegate, UITableViewDataSource {
 
     //MARK: Music Search View Controller Delegate
 extension CurrentTaskVC: MusicSearchVCDelegate {
-   
     func didAddSong(song: Item) {
         playlist.insert(song, at: 0)
         delegate?.didUpdatePlaylist(music: playlist, indexPath: position!)
@@ -266,9 +264,8 @@ extension CurrentTaskVC: MusicSearchVCDelegate {
 
     //MARK: Add/Edit Task View Controller Delegate
 extension CurrentTaskVC: AddEditTaskVCDelegate {
-    
     func didAddNewTask(task: Action) {
-
+        //
     }
     
     func didEditCurrentTask(name: String, time: Int) {

@@ -77,7 +77,7 @@ class MusicSearchVC: UIViewController {
                         }
                     }
                 case .failure(let error):
-                    self.presentDMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                    self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
                 }
             }
         }
@@ -90,7 +90,6 @@ class MusicSearchVC: UIViewController {
 
 //MARK: Table View Delegates
 extension MusicSearchVC: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return musicLibrary.count
     }
@@ -123,7 +122,6 @@ extension MusicSearchVC: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: Search Bar
 extension MusicSearchVC: UISearchResultsUpdating { 
-    
     func updateSearchResults(for searchController: UISearchController) {
         guard let search = searchController.searchBar.text, !search.isEmpty else {
             musicLibrary.removeAll()

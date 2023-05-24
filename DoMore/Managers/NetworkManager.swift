@@ -12,9 +12,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     let imageCache = NSCache<NSString, UIImage>()
-    
     private init() {}
-    
     var songs = [Item]()
     
     func fetchMusic(term: String, completed: @escaping (Result<[Item], DMError>) -> Void) async {

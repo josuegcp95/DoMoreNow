@@ -62,7 +62,7 @@ class HomeVC: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if error != nil {
-                    self.presentDMAlertOnMainThread(title: "Something went wrong", message: "Error occured requesting local notification authorization.", buttonTitle: "OK")
+                    self.presentDMAlertOnMainThread(title: DMAlert.title, message: "Error occured requesting local notification authorization.", buttonTitle: DMAlert.button)
                 }
             }
         }
@@ -84,7 +84,7 @@ class HomeVC: UIViewController {
                     }
                 }
             case .failure(let error):
-                self.presentDMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
             }
         }
     }
@@ -93,7 +93,7 @@ class HomeVC: UIViewController {
         PersistenceManager.saveTasks(tasks: tasks) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else { return }
-            self.presentDMAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
         }
     }
             
@@ -109,7 +109,6 @@ class HomeVC: UIViewController {
 
     //MARK: Table View Delegates
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return localLibrary.count
     }
@@ -145,7 +144,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 
     //MARK: Add/Edit Task View Controller Delegate
 extension HomeVC: AddEditTaskVCDelegate {
-    
     func didAddNewTask(task: Action) {
         localLibrary.insert(task, at: 0)
         saveTasks(tasks: localLibrary)
@@ -159,7 +157,6 @@ extension HomeVC: AddEditTaskVCDelegate {
 
     //MARK: Current Task View Controller Delegate
 extension HomeVC: CurrentTaskVCDelegate {
-  
     func didUpdatePlaylist(music: [Item], indexPath: Int) {
         var musicUpdate = localLibrary[indexPath]
         musicUpdate.songs = music

@@ -18,3 +18,7 @@ enum SFSymbols {
     static let pencil = "pencil.circle.fill"
 }
 
+enum DMAlert {
+    static let title = "Attention"
+    static let button = "OK"
+}

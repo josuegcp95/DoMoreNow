@@ -209,7 +209,7 @@ class MusicPlayerVC: UIViewController {
                 let content = UNMutableNotificationContent()
                 content.title = "Your task has ended"
                 content.body = "You're doing great!"
-                let soundName = UNNotificationSoundName("alarm.wav")
+                let soundName = UNNotificationSoundName("alarm2.wav")
                 content.sound = UNNotificationSound(named: soundName)
                 
                 // Trigger
@@ -223,7 +223,7 @@ class MusicPlayerVC: UIViewController {
                     guard let self = self else { return}
                     if error != nil {
                         DispatchQueue.main.async {
-                            self.presentDMAlertOnMainThread(title: "Something went wrong", message: error.debugDescription, buttonTitle: "OK")
+                            self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.debugDescription, buttonTitle: DMAlert.button)
                         }
                     }
                 }
@@ -252,7 +252,6 @@ class MusicPlayerVC: UIViewController {
 
     //MARK: Timer
 extension MusicPlayerVC {
-    
     func secondsToMinutesSeconds(_ sec: Int) -> (Int, Int) {
         let min = (sec / 60)
         let sec = (sec % 60)

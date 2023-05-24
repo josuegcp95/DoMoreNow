@@ -28,22 +28,22 @@ final class DoMoreTests: XCTestCase {
     }
     
     func testCanValidateTextFields() {
-        let testVC = AddEditTaskVC()
-        testVC.nameTextField.text = "Boxing"
-        testVC.timeTextField.text = "45b"
-        XCTAssertEqual(testVC.nameTextField.text, "Boxing")
-        XCTAssertFalse(testVC.timeTextField.text!.isNumbersOnly)
+        let sut = AddEditTaskVC()
+        sut.nameTextField.text = "Boxing"
+        sut.timeTextField.text = "45b"
+        XCTAssertEqual(sut.nameTextField.text, "Boxing")
+        XCTAssertFalse(sut.timeTextField.text!.isNumbersOnly)
     }
     
     func testCanSetTimerLabel() {
-        let destVC = MusicPlayerVC()
-        destVC.setTimerLabel(1800)
-        XCTAssertTrue(destVC.timerLabel.text == "30:00")
+        let sut = MusicPlayerVC()
+        sut.setTimerLabel(1800)
+        XCTAssertTrue(sut.timerLabel.text == "30:00")
     }
     
     func testCanSetSongDurationLabel() { 
-        let destVC = MusicPlayerVC()
-        destVC.setSongDurationLabel(2700)
-        XCTAssertTrue(destVC.songDuration.text == "45:00")
+        let sut = MusicPlayerVC()
+        sut.setSongDurationLabel(2700)
+        XCTAssertTrue(sut.songDuration.text == "45:00")
     }
 }
