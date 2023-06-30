@@ -5,7 +5,7 @@
 
 #### DoMore lets you create a task, set a time, and build a playlist. It uses Apple’s frameworks “MusicKit” and “Media Player” to connect to your Apple Music account and enables you to search and play music from within the app.
 
-#### Developed in Swift and UIKit (Programmatically). DoMore follows the MVC architecture. It uses UserDefaults to persist data locally and NSCache to cache images for better performance. It handles errors and shows appropriate alerts to keep users informed. Also, it supports local notifications, dark/light mode, and much more.
+#### Developed in Swift and UIKit. DoMore follows the MVC architecture. It uses UserDefaults to persist data locally and NSCache to cache images for better performance. It handles errors and shows appropriate alerts to keep users informed. Also, it supports local notifications, dark/light mode, and much more.
 
 ---
 
