@@ -3,14 +3,14 @@
 [![Click here to download](https://user-images.githubusercontent.com/82785695/200953066-c30fc85b-fded-45db-a52a-5d2baa04c5f0.png)](https://apps.apple.com/us/app/domore/id6444235740)
 ---
 
-#### This app was developed using Swift and UIKit. 
-It follows the MVC architecture. 
-It uses apple’s frameworks MusicKit and MediaPlayer to connect to your Apple Music account. 
+##### This app was developed using Swift and UIKit.
+##### It follows the MVC architecture. 
+##### It uses apple’s frameworks MusicKit and MediaPlayer to connect to your Apple Music account. 
 
-#### Enables you to search and play music from within the app. 
-Uses UserDefaults to persist data locally and NSCache to cache images for better performance. 
-Handles errors and shows appropriate alerts to keep users informed. 
-Supports local notifications, dark/light mode, and much more.
+##### Enables you to search and play music from within the app. 
+##### Uses UserDefaults to persist data locally and NSCache to cache images for better performance. 
+##### Handles errors and shows appropriate alerts to keep users informed. 
+##### Supports local notifications, dark/light mode, and much more.
 
 ---
 
