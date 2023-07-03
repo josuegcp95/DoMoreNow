@@ -23,6 +23,6 @@ class DMAlertContainerView: UIView {
         backgroundColor = .systemBackground
         layer.cornerRadius = 12
         layer.borderWidth = 1
-        layer.borderColor = UIColor.label.cgColor
+        layer.borderColor = UIColor.secondarySystemFill.cgColor
     }
 }
