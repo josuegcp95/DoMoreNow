@@ -14,7 +14,7 @@ enum DMError: String, Error {
     case unableToProceed = "Please allow access/subscribe to Apple Music to continue."
     case unableToComplete = "Please check your internet connection."
     case bothFields = "Please fill out both fields."
-    case onlyNumbers = "Please enter only numbers in time field."
+    case onlyNumbers = "Please enter only whole numbers in time field."
 }
 
 

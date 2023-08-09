@@ -37,6 +37,7 @@
 		3337D84729088DA700BFFD32 /* DMAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84629088DA700BFFD32 /* DMAlertVC.swift */; };
 		3337D84929088F8700BFFD32 /* DMEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */; };
 		3337D84B290CBBA000BFFD32 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84A290CBBA000BFFD32 /* String+Ext.swift */; };
+		336DFBBC2A83411F00B70764 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DFBBB2A83411F00B70764 /* MockData.swift */; };
 		3397A882291602FC0096EEA4 /* AddEditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */; };
 		3397A88A2916CF990096EEA4 /* DoMoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A8892916CF990096EEA4 /* DoMoreTests.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		3337D84629088DA700BFFD32 /* DMAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAlertVC.swift; sourceTree = "<group>"; };
 		3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMEmptyStateView.swift; sourceTree = "<group>"; };
 		3337D84A290CBBA000BFFD32 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		336DFBBB2A83411F00B70764 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskVC.swift; sourceTree = "<group>"; };
 		3397A8872916CF990096EEA4 /* DoMoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoMoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3397A8892916CF990096EEA4 /* DoMoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoMoreTests.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			children = (
 				33098B6D2900925A00DA02B0 /* Action.swift */,
 				33098B6F2900926E00DA02B0 /* Item.swift */,
+				336DFBBB2A83411F00B70764 /* MockData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				336DFBBC2A83411F00B70764 /* MockData.swift in Sources */,
 				3337D84329076FD200BFFD32 /* Constants.swift in Sources */,
 				33098B6A290091FF00DA02B0 /* NetworkManager.swift in Sources */,
 				3337D84B290CBBA000BFFD32 /* String+Ext.swift in Sources */,
@@ -589,7 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -622,7 +626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

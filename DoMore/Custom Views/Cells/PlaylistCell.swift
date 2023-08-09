@@ -24,7 +24,7 @@ class PlaylistCell: UITableViewCell {
     }
     
     func set(song: Item) {
-//        let imageIcon = UIImage(systemName: "music.note.list")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)
+//        let imageIcon = MockData.images.randomElement()
 //        artwork.image = imageIcon
         artwork.downloadImage(fromURL: song.imageURL!.absoluteString)
         songName.text = song.name

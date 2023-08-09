@@ -108,7 +108,7 @@ class MusicPlayerVC: UIViewController {
         guard let title = musicPlayer.nowPlayingItem?.title else { return }
         guard let imageURL = imagesDict[title] else { return }
         artwork.downloadImage(fromURL: imageURL)
-//        let imageIcon = UIImage(systemName: "music.note.house.fill")?.withTintColor(.systemPink, renderingMode: .alwaysOriginal)
+//        let imageIcon = MockData.images.randomElement()
 //        artwork.image = imageIcon
         updateSongDurationLabel()
     }
