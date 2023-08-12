@@ -19,7 +19,7 @@ class CurrentTaskVC: UIViewController {
     let timeLabel = DMBodyLabel(fontSize: 19, textAlignment: .center)
     let addSongButton = DMButton(title: "Add songs", backgroundColor: .systemPink)
     let startTaskButton = DMButton(title: "Start task", backgroundColor: .systemPink)
-    let editTaskButton = DMButton(systemImageName: SFSymbols.pencil, backgroudColor: .systemBackground, foregroundColor: .systemGray)
+    let editTaskButton = DMButton(systemImageName: SFSymbols.pencil, backgroundColor: .systemBackground, foregroundColor: .systemGray)
     let tableView = UITableView()
     var playlist = [Item]()
     var tracks = [String]()
@@ -167,6 +167,7 @@ class CurrentTaskVC: UIViewController {
         prepareImages()
         let destVC = MusicPlayerVC()
         let seconds = minutes! * 60
+        tracks.shuffle()
         destVC.tracks = tracks
         destVC.imagesDict = imagesDict
         destVC.timerSeconds = seconds
@@ -205,7 +206,8 @@ class CurrentTaskVC: UIViewController {
     private func prepareTracks() {
         tracks.removeAll()
         for song in playlist {
-            tracks.insert(song.id, at: 0)
+//            tracks.insert(song.id, at: 0)
+            tracks.append(song.id)
         }
     }
     
@@ -217,7 +219,7 @@ class CurrentTaskVC: UIViewController {
     }
 }
 
-    //MARK: Table View Delegates
+    //MARK: Table View Methods
 extension CurrentTaskVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlist.count

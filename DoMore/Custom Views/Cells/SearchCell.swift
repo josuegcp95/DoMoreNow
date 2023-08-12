@@ -13,7 +13,7 @@ class SearchCell: UITableViewCell {
     let artwork = DMImageView(frame: .zero)
     let songName = DMSubtitleLabel(fontSize: 17, textAlignment: .left)
     let artistName = DMBodyLabel(fontSize: 15, textAlignment: .left)
-    let addButton = DMButton(systemImageName: SFSymbols.plus, backgroudColor: .systemBackground, foregroundColor: .systemGray)
+    let addButton = DMButton(systemImageName: SFSymbols.plus, backgroundColor: .systemBackground, foregroundColor: .systemGray)
     var isOnLibrary = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -24,7 +24,7 @@ class SearchCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     func set(song: Item) {
 //        let imageIcon = MockData.images.randomElement()
 //        artwork.image = imageIcon
@@ -34,7 +34,6 @@ class SearchCell: UITableViewCell {
     }
     
     func isSongOnLibrary(duplicates: [String], song: Item) {
-        
         if duplicates.contains(song.id) {
             addButton.setImage(UIImage(systemName: SFSymbols.minus), for: .normal)
             isOnLibrary = true
@@ -43,7 +42,7 @@ class SearchCell: UITableViewCell {
             isOnLibrary = false
         }
     }
-    
+        
     private func configure() {
         addSubview(artwork)
         addSubview(songName)

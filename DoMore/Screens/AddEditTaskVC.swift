@@ -55,7 +55,7 @@ class AddEditTaskVC: UIViewController {
     func configureDurationTextField() {
         view.addSubview(timeTextField)
         timeTextField.keyboardType = .numberPad
-        
+    
         NSLayoutConstraint.activate([
             timeTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 25),
             timeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),

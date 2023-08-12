@@ -70,8 +70,7 @@ class HomeVC: UIViewController {
     
     private func retrieveTasks() {
         PersistenceManager.retrieveTasks { [weak self] result in
-            guard let self = self else { return}
-            
+            guard let self = self else { return }
             switch result {
             case .success(let tasks):
                 if tasks.isEmpty {
@@ -107,7 +106,7 @@ class HomeVC: UIViewController {
     }
 }
 
-    //MARK: Table View Delegates
+    //MARK: Table View Methods
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return localLibrary.count
@@ -151,7 +150,7 @@ extension HomeVC: AddEditTaskVCDelegate {
     }
     
     func didEditCurrentTask(name: String, time: Int) {
-        
+        //
     }
 }
 

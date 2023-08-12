@@ -30,7 +30,6 @@ class MusicSearchVC: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Add songs"
-        
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close,
                                           target: self,
                                           action: #selector(closeButtonTapped))
@@ -41,15 +40,15 @@ class MusicSearchVC: UIViewController {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.searchTextField.backgroundColor = .systemBackground.withAlphaComponent(0.50)
         searchController.searchBar.returnKeyType = .continue
         navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
         tableView.rowHeight = 60
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseID)
         tableView.delegate = self
@@ -97,8 +96,8 @@ extension MusicSearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseID, for: indexPath) as! SearchCell
         let song = musicLibrary[indexPath.row]
-        cell.set(song: song)
         cell.isSongOnLibrary(duplicates: duplicates, song: song)
+        cell.set(song: song)
         return cell
     }
     
@@ -109,11 +108,13 @@ extension MusicSearchVC: UITableViewDelegate, UITableViewDataSource {
         
         if !currentCell.isOnLibrary {
             delegate?.didAddSong(song: song)
+            duplicates.append(song.id)
             currentCell.addButton.setImage(UIImage(systemName: SFSymbols.minus), for: .normal)
             currentCell.isOnLibrary = true
         }
         else {
             delegate?.didRemoveSong(song: song)
+            duplicates.removeAll { $0 == song.id }
             currentCell.addButton.setImage(UIImage(systemName: SFSymbols.plus), for: .normal)
             currentCell.isOnLibrary = false
         }

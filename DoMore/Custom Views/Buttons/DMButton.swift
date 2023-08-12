@@ -25,10 +25,10 @@ class DMButton: UIButton {
         configuration?.baseForegroundColor = .white
     }
     
-    convenience init (systemImageName: String, backgroudColor: UIColor, foregroundColor: UIColor) {
+    convenience init (systemImageName: String, backgroundColor: UIColor, foregroundColor: UIColor) {
         self.init(frame: .zero)
         configuration?.image = UIImage(systemName: systemImageName)
-        configuration?.baseBackgroundColor = backgroudColor
+        configuration?.baseBackgroundColor = backgroundColor
         configuration?.baseForegroundColor = foregroundColor
         configuration?.imagePlacement = .all
         configuration?.imagePadding = 5

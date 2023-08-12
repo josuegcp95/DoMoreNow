@@ -15,9 +15,9 @@ class MusicPlayerVC: UIViewController {
     let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
     let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
     var timerLabel = DMTitleLabel(fontSize: 43, textAlignment: .center)
-    let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroudColor: .systemPink, foregroundColor: .white)
-    let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroudColor: .systemPink, foregroundColor: .white)
-    let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroudColor: .systemPink, foregroundColor: .white)
+    let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroundColor: .systemPink, foregroundColor: .white)
+    let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroundColor: .systemPink, foregroundColor: .white)
+    let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroundColor: .systemPink, foregroundColor: .white)
     let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink)
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     let notificationCenter = UNUserNotificationCenter.current()
@@ -115,8 +115,8 @@ class MusicPlayerVC: UIViewController {
     
     private func configureMusicPlayer() {
         musicPlayer.setQueue(with: tracks)
-        musicPlayer.shuffleMode = .songs
         musicPlayer.repeatMode = .all
+        musicPlayer.shuffleMode = .songs
         musicPlayer.prepareToPlay()
         musicPlayer.play()
         updateUI()
