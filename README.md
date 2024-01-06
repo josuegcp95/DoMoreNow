@@ -15,11 +15,11 @@
 ---
 
 ## Screenshots
-![DoMore(1)](https://user-images.githubusercontent.com/82785695/205761640-34b26ee5-7f8b-472c-b617-7770baf43ce3.png)
-![DoMore(2)](https://user-images.githubusercontent.com/82785695/205761646-d92312de-4e7c-4b6d-b548-7a62d7dda200.png)
-![DoMore(3)](https://user-images.githubusercontent.com/82785695/205761656-b8c93d9f-3849-4ffc-bdd2-9e5beaf71884.png)
-![DoMore(4)](https://user-images.githubusercontent.com/82785695/205761671-e776deff-a067-4124-8d60-cb3d4438a585.png)
 
+![DoMore(1)](https://github.com/josuegcp95/DoMore/assets/82785695/13f2bc6a-cc56-4061-8fcf-3a6815b998ee)
+![DoMore(2)](https://github.com/josuegcp95/DoMore/assets/82785695/fda37e27-719f-4a5a-b099-c43da9682f5a)
+![DoMore(3)](https://github.com/josuegcp95/DoMore/assets/82785695/18d63fb7-5664-45c7-8041-15ac7923e2c6)
+![DoMore(4)](https://github.com/josuegcp95/DoMore/assets/82785695/f60057de-c8ec-41ae-888f-32fa77bc4987)
 
 
 
