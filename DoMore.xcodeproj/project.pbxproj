@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33000CAC2C136ADB001E9D83 /* ns1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 33000CAB2C136ADB001E9D83 /* ns1.wav */; };
 		33098B4629008E8700DA02B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33098B4529008E8700DA02B0 /* AppDelegate.swift */; };
 		33098B4829008E8700DA02B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33098B4729008E8700DA02B0 /* SceneDelegate.swift */; };
 		33098B4F29008E8900DA02B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33098B4E29008E8900DA02B0 /* Assets.xcassets */; };
@@ -30,7 +31,6 @@
 		33098B8C29009C1800DA02B0 /* MusicSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33098B8B29009C1800DA02B0 /* MusicSearchVC.swift */; };
 		33098B8E29009C3600DA02B0 /* MusicPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33098B8D29009C3600DA02B0 /* MusicPlayerVC.swift */; };
 		33098B9029021A6A00DA02B0 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33098B8F29021A6A00DA02B0 /* UIView+Ext.swift */; };
-		3311A866292857A200A51BC4 /* alarm2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3311A865292857A200A51BC4 /* alarm2.wav */; };
 		3337D84129076DE800BFFD32 /* DMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84029076DE800BFFD32 /* DMError.swift */; };
 		3337D84329076FD200BFFD32 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84229076FD200BFFD32 /* Constants.swift */; };
 		3337D84529088D6400BFFD32 /* DMAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84429088D6400BFFD32 /* DMAlertContainerView.swift */; };
@@ -53,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		33000CAB2C136ADB001E9D83 /* ns1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ns1.wav; sourceTree = "<group>"; };
 		33098B4229008E8700DA02B0 /* DoMore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoMore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33098B4529008E8700DA02B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33098B4729008E8700DA02B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		33098B8B29009C1800DA02B0 /* MusicSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchVC.swift; sourceTree = "<group>"; };
 		33098B8D29009C3600DA02B0 /* MusicPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerVC.swift; sourceTree = "<group>"; };
 		33098B8F29021A6A00DA02B0 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
-		3311A865292857A200A51BC4 /* alarm2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarm2.wav; path = ../../../../Downloads/alarm2.wav; sourceTree = "<group>"; };
 		3337D84029076DE800BFFD32 /* DMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMError.swift; sourceTree = "<group>"; };
 		3337D84229076FD200BFFD32 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3337D84429088D6400BFFD32 /* DMAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAlertContainerView.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		3311A8622921CB3500A51BC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3311A865292857A200A51BC4 /* alarm2.wav */,
+				33000CAB2C136ADB001E9D83 /* ns1.wav */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,8 +376,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33000CAC2C136ADB001E9D83 /* ns1.wav in Resources */,
 				33098B5229008E8900DA02B0 /* LaunchScreen.storyboard in Resources */,
-				3311A866292857A200A51BC4 /* alarm2.wav in Resources */,
 				33098B4F29008E8900DA02B0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,11 +578,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B33C68V2AN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DoMore/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DoMore;
+				INFOPLIST_KEY_CFBundleDisplayName = DoMoreNow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "DoMore uses Music access to play music while you're doing a task.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -593,7 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -611,11 +611,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B33C68V2AN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DoMore/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = DoMore;
+				INFOPLIST_KEY_CFBundleDisplayName = DoMoreNow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "DoMore uses Music access to play music while you're doing a task.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -626,7 +626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = josuegcp95.DoMore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -44,7 +44,7 @@ class MusicPlayerVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "DoMore..."
+        title = "DoMoreNow..."
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
     }
@@ -122,7 +122,8 @@ class MusicPlayerVC: UIViewController {
         updateUI()
     }
             
-    @objc func playPauseButtonTapped() {
+    @objc 
+    func playPauseButtonTapped() {
         if self.musicPlayer.playbackState == .paused || musicPlayer.playbackState == .stopped {
             if timerSeconds! >= 1 {
                 playPauseButton.setImage(UIImage(systemName: SFSymbols.pause), for: .normal)
@@ -141,17 +142,20 @@ class MusicPlayerVC: UIViewController {
         }
     }
     
-    @objc func forwardButtonTapped() {
+    @objc 
+    func forwardButtonTapped() {
         musicPlayer.skipToNextItem()
         updateUI()
     }
     
-    @objc func backwardButtonTapped() {
+    @objc 
+    func backwardButtonTapped() {
         musicPlayer.skipToPreviousItem()
         updateUI()
     }
         
-    @objc func finishButtonTapped() {
+    @objc 
+    func finishButtonTapped() {
         animateFinishButton()
         if timerSeconds! >= 1 {
             // Create alert
@@ -159,31 +163,38 @@ class MusicPlayerVC: UIViewController {
             // Create actions
             let yesAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default) { [weak self] UIAlertAction in
                 guard let self = self else { return }
+                /// End session
                 self.musicPlayer.stop()
                 self.notificationCenter.removeAllPendingNotificationRequests()
                 self.navigationController?.popViewController(animated: true)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { UIAlertAction in
+                /// Do nothing
             }
             // Add actions
             alert.addAction(yesAction)
             alert.addAction(cancelAction)
+            
+            // Present alert
             self.present(alert, animated: true)
         }
         self.notificationCenter.removeAllPendingNotificationRequests()
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func itemDidChange() {
+    @objc 
+    func itemDidChange() {
         updateUI()
     }
     
-    @objc func stateDidChange() {
+    @objc 
+    func stateDidChange() {
         let secondsToDelay = 0.5
         perform(#selector(remotePlayPause), with: nil, afterDelay: secondsToDelay)
     }
     
-    @objc func remotePlayPause() {
+    @objc 
+    func remotePlayPause() {
         if musicPlayer.playbackState == .paused {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             timerValve = true
@@ -203,19 +214,20 @@ class MusicPlayerVC: UIViewController {
     
     private func setLocalNotificationAlert(_ sec: Int) {
         notificationCenter.getNotificationSettings { [weak self] settings in
-            guard let self = self else { return}
+            guard let self else { return }
             if settings.authorizationStatus == .authorized {
-                // Content
+                
+                /// Content
                 let content = UNMutableNotificationContent()
                 content.title = "Your task has ended"
                 content.body = "You're doing great!"
-                let soundName = UNNotificationSoundName("alarm2.wav")
+                let soundName = UNNotificationSoundName("ns1.wav")
                 content.sound = UNNotificationSound(named: soundName)
                 
-                // Trigger
+                /// Trigger
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(sec), repeats: false)
                 
-                // Request
+                /// Request
                 let uuidString = UUID().uuidString
                 let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
                 
@@ -287,7 +299,8 @@ extension MusicPlayerVC {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    @objc func updateTimer() {
+    @objc 
+    func updateTimer() {
         if timerSeconds == 1 {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             musicPlayer.pause()

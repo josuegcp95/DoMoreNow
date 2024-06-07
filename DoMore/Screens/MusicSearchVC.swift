@@ -59,7 +59,7 @@ class MusicSearchVC: UIViewController {
         self.showSpinner()
         Task {
             await NetworkManager.shared.fetchMusic(term: term) { [weak self] result in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.hideSpinner()
                 switch result {
                 case .success(let music):
@@ -82,7 +82,8 @@ class MusicSearchVC: UIViewController {
         }
     }
     
-    @objc func closeButtonTapped() {
+    @objc 
+    func closeButtonTapped() {
         dismiss(animated: true)
     }
 }

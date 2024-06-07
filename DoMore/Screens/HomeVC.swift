@@ -45,7 +45,8 @@ class HomeVC: UIViewController {
         tableView.dataSource = self
     }
     
-    @objc func addButtonTapped() {        
+    @objc 
+    func addButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
         destVC.state = true
@@ -59,7 +60,7 @@ class HomeVC: UIViewController {
     
     private func requestLocalNotificationAuth() {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound,]) { [weak self] (granted, error) in
-            guard let self = self else { return }
+            guard let self else { return }
             DispatchQueue.main.async {
                 if error != nil {
                     self.presentDMAlertOnMainThread(title: DMAlert.title, message: "Error occured requesting local notification authorization.", buttonTitle: DMAlert.button)
@@ -70,7 +71,7 @@ class HomeVC: UIViewController {
     
     private func retrieveTasks() {
         PersistenceManager.retrieveTasks { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             switch result {
             case .success(let tasks):
                 if tasks.isEmpty {
@@ -90,7 +91,7 @@ class HomeVC: UIViewController {
     
     private func saveTasks(tasks: [Action]) {
         PersistenceManager.saveTasks(tasks: tasks) { [weak self] error in
-            guard let self = self else { return }
+            guard let self else { return }
             guard let error = error else { return }
             self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
         }

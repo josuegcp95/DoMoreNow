@@ -132,7 +132,8 @@ class CurrentTaskVC: UIViewController {
         ])
     }
     
-    @objc func editTaskButtonTapped() {
+    @objc 
+    func editTaskButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
         destVC.state = false
@@ -146,32 +147,42 @@ class CurrentTaskVC: UIViewController {
         present(navController, animated: true)
     }
     
-    @objc func addSongButtonTapped() {
-        guard musicSubscription?.canPlayCatalogContent == true else {
-            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
-            return }
-        prepareTracks()
-        let destVC = MusicSearchVC()
-        destVC.delegate = self
-        destVC.duplicates = tracks
-        let navController = UINavigationController(rootViewController: destVC)
-        navController.navigationBar.tintColor = .systemPink
-        present(navController, animated: true)
+    //MARK: REVIEW
+    @objc 
+    func addSongButtonTapped() {
+        DispatchQueue.main.async { [self] in
+            guard musicSubscription?.canPlayCatalogContent == true else {
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
+                return
+            }
+            prepareTracks()
+            let destVC = MusicSearchVC()
+            destVC.delegate = self
+            destVC.duplicates = tracks
+            let navController = UINavigationController(rootViewController: destVC)
+            navController.navigationBar.tintColor = .systemPink
+            present(navController, animated: true)
+        }
     }
     
-    @objc func startTaskButtonTapped() {
-        guard musicSubscription?.canPlayCatalogContent == true else {
-            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
-            return }
-        prepareTracks()
-        prepareImages()
-        let destVC = MusicPlayerVC()
-        let seconds = minutes! * 60
-        tracks.shuffle()
-        destVC.tracks = tracks
-        destVC.imagesDict = imagesDict
-        destVC.timerSeconds = seconds
-        navigationController?.pushViewController(destVC, animated: true)
+    //MARK: REVIEW
+    @objc 
+    func startTaskButtonTapped() {
+        DispatchQueue.main.async { [self] in
+            guard musicSubscription?.canPlayCatalogContent == true else {
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
+                return
+            }
+            prepareTracks()
+            prepareImages()
+            let destVC = MusicPlayerVC()
+            let seconds = minutes! * 60
+            tracks.shuffle()
+            destVC.tracks = tracks
+            destVC.imagesDict = imagesDict
+            destVC.timerSeconds = seconds
+            navigationController?.pushViewController(destVC, animated: true)
+        }
     }
   
     private func updateSubscriptionStatus() {
@@ -185,13 +196,39 @@ class CurrentTaskVC: UIViewController {
     private func requestMusicKitAuth() {
         Task {
             await NetworkManager.shared.requestAuthorization { [weak self] error in
-                guard let self = self else { return }
-                guard let error = error else {
-                    self.updateSubscriptionStatus()
-                    return }
+                guard let self else { return }
+                guard let error else { self.updateSubscriptionStatus(); return }
                 self.updateSubscriptionStatus()
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
+                
+                switch error {
+                case .unableToContinue:
+                    showAllowAccessAlert()
+                default:
+                    self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
+                }
             }
+        }
+    }
+    
+    private func showAllowAccessAlert() {
+        DispatchQueue.main.async { [self] in
+            // Create alert
+            let alert = UIAlertController(title: DMAlert.title, message: DMError.unableToContinue.rawValue, preferredStyle: .alert)
+            
+            // Create actions
+            let settingAction = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { _ in
+                /// Go to settings
+                if let settingsURL = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(settingsURL) }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { _ in
+                /// Do nothing
+            }
+            // Add actions
+            alert.addAction(settingAction)
+            alert.addAction(cancelAction)
+            
+            // Present alert
+            self.present(alert, animated: true)
         }
     }
         
@@ -206,7 +243,6 @@ class CurrentTaskVC: UIViewController {
     private func prepareTracks() {
         tracks.removeAll()
         for song in playlist {
-//            tracks.insert(song.id, at: 0)
             tracks.append(song.id)
         }
     }
