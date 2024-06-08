@@ -55,7 +55,7 @@ class AddEditTaskVC: UIViewController {
     func configureDurationTextField() {
         view.addSubview(timeTextField)
         timeTextField.keyboardType = .numberPad
-    
+        
         NSLayoutConstraint.activate([
             timeTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 25),
             timeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
@@ -69,7 +69,7 @@ class AddEditTaskVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc 
+    @objc
     func saveButtonTapped() {
         guard !nameTextField.text!.isEmpty, !timeTextField.text!.isEmpty else {
             self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.bothFields.rawValue, buttonTitle: DMAlert.button)
@@ -85,7 +85,7 @@ class AddEditTaskVC: UIViewController {
             self.presentDMAlertOnMainThread(title: DMAlert.title, message: "Time has to be greater than 0.", buttonTitle: DMAlert.button)
             return
         }
-    
+        
         if state! {
             let newTask = Action(name: nameTextField.text!, time: time, songs: [])
             delegate?.didAddNewTask(task: newTask)
@@ -96,7 +96,7 @@ class AddEditTaskVC: UIViewController {
         }
     }
     
-    @objc 
+    @objc
     func cancelButtonTapped() {
         dismiss(animated: true)
     }

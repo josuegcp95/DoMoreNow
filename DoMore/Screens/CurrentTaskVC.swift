@@ -28,7 +28,7 @@ class CurrentTaskVC: UIViewController {
     var minutes: Int?
     var musicSubscription: MusicSubscription?
     weak open var delegate: CurrentTaskVCDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -40,12 +40,12 @@ class CurrentTaskVC: UIViewController {
         configureTableView()
         requestMusicKitAuth()
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         isPlaylistEmpty()
         updateSubscriptionStatus()
     }
-
+    
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Current Task"
@@ -55,7 +55,7 @@ class CurrentTaskVC: UIViewController {
     private func configureEditTaskButton() {
         view.addSubview(editTaskButton)
         editTaskButton.addTarget(self, action: #selector(editTaskButtonTapped), for: .touchUpInside)
-
+        
         NSLayoutConstraint.activate([
             editTaskButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35),
             editTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -63,7 +63,7 @@ class CurrentTaskVC: UIViewController {
             editTaskButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
-
+    
     private func configureNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.textColor = .systemPink
@@ -91,7 +91,7 @@ class CurrentTaskVC: UIViewController {
         view.addSubview(addSongButton)
         addSongButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         addSongButton.addTarget(self, action: #selector(addSongButtonTapped), for: .touchUpInside)
-
+        
         NSLayoutConstraint.activate([
             addSongButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25),
             addSongButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
@@ -104,7 +104,7 @@ class CurrentTaskVC: UIViewController {
         view.addSubview(startTaskButton)
         startTaskButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         startTaskButton.addTarget(self, action: #selector(startTaskButtonTapped), for: .touchUpInside)
-
+        
         NSLayoutConstraint.activate([
             startTaskButton.topAnchor.constraint(equalTo: addSongButton.bottomAnchor, constant: 15),
             startTaskButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
@@ -132,7 +132,7 @@ class CurrentTaskVC: UIViewController {
         ])
     }
     
-    @objc 
+    @objc
     func editTaskButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
@@ -147,10 +147,14 @@ class CurrentTaskVC: UIViewController {
         present(navController, animated: true)
     }
     
-    //MARK: REVIEW
-    @objc 
+    @objc
     func addSongButtonTapped() {
         DispatchQueue.main.async { [self] in
+            guard NetworkReachability.shared.isNetworkAvailable() else {
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
+                return
+            }
+            
             guard musicSubscription?.canPlayCatalogContent == true else {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
                 return
@@ -165,10 +169,14 @@ class CurrentTaskVC: UIViewController {
         }
     }
     
-    //MARK: REVIEW
-    @objc 
+    @objc
     func startTaskButtonTapped() {
         DispatchQueue.main.async { [self] in
+            guard NetworkReachability.shared.isNetworkAvailable() else {
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
+                return
+            }
+            
             guard musicSubscription?.canPlayCatalogContent == true else {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
                 return
@@ -184,7 +192,7 @@ class CurrentTaskVC: UIViewController {
             navigationController?.pushViewController(destVC, animated: true)
         }
     }
-  
+    
     private func updateSubscriptionStatus() {
         Task {
             for await subscription in MusicSubscription.subscriptionUpdates {
@@ -231,7 +239,7 @@ class CurrentTaskVC: UIViewController {
             self.present(alert, animated: true)
         }
     }
-        
+    
     private func isPlaylistEmpty() {
         if playlist.isEmpty {
             startTaskButton.isEnabled = false
@@ -255,7 +263,7 @@ class CurrentTaskVC: UIViewController {
     }
 }
 
-    //MARK: Table View Methods
+//MARK: Table View Methods
 extension CurrentTaskVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlist.count
@@ -281,7 +289,7 @@ extension CurrentTaskVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-    //MARK: Music Search View Controller Delegate
+//MARK: Music Search View Controller Delegate
 extension CurrentTaskVC: MusicSearchVCDelegate {
     func didAddSong(song: Item) {
         playlist.insert(song, at: 0)
@@ -300,7 +308,7 @@ extension CurrentTaskVC: MusicSearchVCDelegate {
     }
 }
 
-    //MARK: Add/Edit Task View Controller Delegate
+//MARK: Add/Edit Task View Controller Delegate
 extension CurrentTaskVC: AddEditTaskVCDelegate {
     func didAddNewTask(task: Action) {
         //

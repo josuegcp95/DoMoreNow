@@ -27,7 +27,7 @@ class MusicPlayerVC: UIViewController {
     var timerSeconds: Int?
     var songSeconds: Int?
     var timerValve = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -44,11 +44,11 @@ class MusicPlayerVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "DoMoreNow..."
+        title = "DoMore..."
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
     }
-
+    
     private func configureUI() {
         view.addSubviews(artwork, songName, artistName, songDuration, timerLabel, playPauseButton, backwardButton, forwardButton, finishButton)
         playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped), for: .touchUpInside)
@@ -89,7 +89,7 @@ class MusicPlayerVC: UIViewController {
             backwardButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -15),
             backwardButton.widthAnchor.constraint(equalToConstant: 75),
             backwardButton.heightAnchor.constraint(equalToConstant: 75),
-        
+            
             forwardButton.topAnchor.constraint(equalTo: playPauseButton.topAnchor),
             forwardButton.leadingAnchor.constraint(equalTo: playPauseButton.trailingAnchor, constant: 15),
             forwardButton.widthAnchor.constraint(equalToConstant: 75),
@@ -108,8 +108,8 @@ class MusicPlayerVC: UIViewController {
         guard let title = musicPlayer.nowPlayingItem?.title else { return }
         guard let imageURL = imagesDict[title] else { return }
         artwork.downloadImage(fromURL: imageURL)
-//        let imageIcon = MockData.images.randomElement()
-//        artwork.image = imageIcon
+        //        let imageIcon = MockData.images.randomElement()
+        //        artwork.image = imageIcon
         updateSongDurationLabel()
     }
     
@@ -121,8 +121,8 @@ class MusicPlayerVC: UIViewController {
         musicPlayer.play()
         updateUI()
     }
-            
-    @objc 
+    
+    @objc
     func playPauseButtonTapped() {
         if self.musicPlayer.playbackState == .paused || musicPlayer.playbackState == .stopped {
             if timerSeconds! >= 1 {
@@ -142,19 +142,19 @@ class MusicPlayerVC: UIViewController {
         }
     }
     
-    @objc 
+    @objc
     func forwardButtonTapped() {
         musicPlayer.skipToNextItem()
         updateUI()
     }
     
-    @objc 
+    @objc
     func backwardButtonTapped() {
         musicPlayer.skipToPreviousItem()
         updateUI()
     }
-        
-    @objc 
+    
+    @objc
     func finishButtonTapped() {
         animateFinishButton()
         if timerSeconds! >= 1 {
@@ -182,18 +182,18 @@ class MusicPlayerVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc 
+    @objc
     func itemDidChange() {
         updateUI()
     }
     
-    @objc 
+    @objc
     func stateDidChange() {
         let secondsToDelay = 0.5
         perform(#selector(remotePlayPause), with: nil, afterDelay: secondsToDelay)
     }
     
-    @objc 
+    @objc
     func remotePlayPause() {
         if musicPlayer.playbackState == .paused {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
@@ -219,7 +219,7 @@ class MusicPlayerVC: UIViewController {
                 
                 /// Content
                 let content = UNMutableNotificationContent()
-                content.title = "Your task has ended"
+                content.title = "You have finished your task"
                 content.body = "You're doing great!"
                 let soundName = UNNotificationSoundName("ns1.wav")
                 content.sound = UNNotificationSound(named: soundName)
@@ -262,7 +262,7 @@ class MusicPlayerVC: UIViewController {
     }
 }
 
-    //MARK: Timer
+//MARK: Timer
 extension MusicPlayerVC {
     func secondsToMinutesSeconds(_ sec: Int) -> (Int, Int) {
         let min = (sec / 60)
@@ -299,7 +299,7 @@ extension MusicPlayerVC {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    @objc 
+    @objc
     func updateTimer() {
         if timerSeconds == 1 {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)

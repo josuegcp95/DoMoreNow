@@ -37,6 +37,7 @@
 		3337D84729088DA700BFFD32 /* DMAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84629088DA700BFFD32 /* DMAlertVC.swift */; };
 		3337D84929088F8700BFFD32 /* DMEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */; };
 		3337D84B290CBBA000BFFD32 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337D84A290CBBA000BFFD32 /* String+Ext.swift */; };
+		33520D9B2C14CCAE00C4F584 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33520D9A2C14CCAE00C4F584 /* NetworkReachability.swift */; };
 		336DFBBC2A83411F00B70764 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DFBBB2A83411F00B70764 /* MockData.swift */; };
 		3397A882291602FC0096EEA4 /* AddEditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */; };
 		3397A88A2916CF990096EEA4 /* DoMoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3397A8892916CF990096EEA4 /* DoMoreTests.swift */; };
@@ -85,6 +86,7 @@
 		3337D84629088DA700BFFD32 /* DMAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAlertVC.swift; sourceTree = "<group>"; };
 		3337D84829088F8700BFFD32 /* DMEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMEmptyStateView.swift; sourceTree = "<group>"; };
 		3337D84A290CBBA000BFFD32 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		33520D9A2C14CCAE00C4F584 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		336DFBBB2A83411F00B70764 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		3397A881291602FC0096EEA4 /* AddEditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskVC.swift; sourceTree = "<group>"; };
 		3397A8872916CF990096EEA4 /* DoMoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoMoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +180,7 @@
 			children = (
 				33098B69290091FF00DA02B0 /* NetworkManager.swift */,
 				33098B6B2900922100DA02B0 /* PersistenceManager.swift */,
+				33520D9A2C14CCAE00C4F584 /* NetworkReachability.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				3337D84729088DA700BFFD32 /* DMAlertVC.swift in Sources */,
 				33098B68290091D800DA02B0 /* UIViewController+Ext.swift in Sources */,
 				33098B7C2900941200DA02B0 /* DMImageView.swift in Sources */,
+				33520D9B2C14CCAE00C4F584 /* NetworkReachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

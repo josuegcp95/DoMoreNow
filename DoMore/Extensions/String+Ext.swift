@@ -8,6 +8,7 @@
 import Foundation
 
 extension String {
+    
     var isNumbersOnly: Bool {
         let numberOnly = NSCharacterSet.init(charactersIn: "0123456789")
         let stringFromTextField = NSCharacterSet.init(charactersIn: self)

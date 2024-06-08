@@ -8,7 +8,6 @@
 import UIKit
 
 struct MockData {
-    
     static var images: [UIImage] {
         let images = [
             UIImage(named: "stock1")!,

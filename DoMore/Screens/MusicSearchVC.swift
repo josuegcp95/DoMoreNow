@@ -82,7 +82,7 @@ class MusicSearchVC: UIViewController {
         }
     }
     
-    @objc 
+    @objc
     func closeButtonTapped() {
         dismiss(animated: true)
     }
@@ -123,7 +123,7 @@ extension MusicSearchVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: Search Bar
-extension MusicSearchVC: UISearchResultsUpdating { 
+extension MusicSearchVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let search = searchController.searchBar.text, !search.isEmpty else {
             musicLibrary.removeAll()

@@ -11,6 +11,7 @@ fileprivate var loadingView: UIView!
 fileprivate let activityIndicator = UIActivityIndicatorView(style: .large)
 
 extension UIViewController {
+    
     func presentDMAlertOnMainThread(title: String, message: String, buttonTitle: String) {
         DispatchQueue.main.async {
             let alertVC = DMAlertVC(title: title, message: message, buttonTitle: buttonTitle)
