@@ -87,7 +87,8 @@ class DMAlertVC: UIViewController {
         ])
     }
     
-   @objc private func dismissVC() {
+   @objc 
+    private func dismissVC() {
         dismiss(animated: true)
     }
 }
