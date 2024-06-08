@@ -8,11 +8,11 @@
 import UIKit
 import MusicKit
 
-class NetworkManager {
+final class NetworkManager {
     
     static let shared = NetworkManager()
-    let imageCache = NSCache<NSString, UIImage>()
     private init() {}
+    let imageCache = NSCache<NSString, UIImage>()
     var songs = [Item]()
     
     func fetchMusic(term: String, completed: @escaping (Result<[Item], DMError>) -> Void) async {

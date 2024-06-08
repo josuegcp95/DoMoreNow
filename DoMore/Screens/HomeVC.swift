@@ -9,9 +9,9 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let tableView = UITableView()
-    var localLibrary: [Action] = []
-    let notificationCenter = UNUserNotificationCenter.current()
+    private let tableView = UITableView()
+    private var localLibrary: [Action] = []
+    private let notificationCenter = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class HomeVC: UIViewController {
     }
     
     @objc
-    func addButtonTapped() {
+    private func addButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
         destVC.state = true

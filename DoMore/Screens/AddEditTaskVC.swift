@@ -40,7 +40,7 @@ class AddEditTaskVC: UIViewController {
         navigationItem.rightBarButtonItem = saveButton
     }
     
-    func configureNameTextField() {
+    private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.returnKeyType = .continue
         
@@ -52,7 +52,7 @@ class AddEditTaskVC: UIViewController {
         ])
     }
     
-    func configureDurationTextField() {
+    private func configureDurationTextField() {
         view.addSubview(timeTextField)
         timeTextField.keyboardType = .numberPad
         
@@ -70,7 +70,7 @@ class AddEditTaskVC: UIViewController {
     }
     
     @objc
-    func saveButtonTapped() {
+    private func saveButtonTapped() {
         guard !nameTextField.text!.isEmpty, !timeTextField.text!.isEmpty else {
             self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.bothFields.rawValue, buttonTitle: DMAlert.button)
             return
@@ -97,7 +97,7 @@ class AddEditTaskVC: UIViewController {
     }
     
     @objc
-    func cancelButtonTapped() {
+    private func cancelButtonTapped() {
         dismiss(animated: true)
     }
 }

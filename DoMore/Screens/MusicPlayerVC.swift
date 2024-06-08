@@ -10,23 +10,23 @@ import MediaPlayer
 
 class MusicPlayerVC: UIViewController {
     
-    let artwork = DMImageView(frame: .zero)
-    let songName = DMSubtitleLabel(fontSize: 19, textAlignment: .left)
-    let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
-    let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
-    var timerLabel = DMTitleLabel(fontSize: 43, textAlignment: .center)
-    let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroundColor: .systemPink, foregroundColor: .white)
-    let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroundColor: .systemPink, foregroundColor: .white)
-    let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroundColor: .systemPink, foregroundColor: .white)
-    let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink)
-    let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    let notificationCenter = UNUserNotificationCenter.current()
+    private let artwork = DMImageView(frame: .zero)
+    private let songName = DMSubtitleLabel(fontSize: 19, textAlignment: .left)
+    private let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
+    private let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
+    private var timerLabel = DMTitleLabel(fontSize: 43, textAlignment: .center)
+    private let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroundColor: .systemPink, foregroundColor: .white)
+    private let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroundColor: .systemPink, foregroundColor: .white)
+    private let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroundColor: .systemPink, foregroundColor: .white)
+    private let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink)
+    private let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    private let notificationCenter = UNUserNotificationCenter.current()
     var tracks = [String]()
     var imagesDict = [String: String]()
-    var timer: Timer?
+    private var timer: Timer?
     var timerSeconds: Int?
-    var songSeconds: Int?
-    var timerValve = false
+    private var songSeconds: Int?
+    private var timerValve = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +123,7 @@ class MusicPlayerVC: UIViewController {
     }
     
     @objc
-    func playPauseButtonTapped() {
+    private func playPauseButtonTapped() {
         if self.musicPlayer.playbackState == .paused || musicPlayer.playbackState == .stopped {
             if timerSeconds! >= 1 {
                 playPauseButton.setImage(UIImage(systemName: SFSymbols.pause), for: .normal)
@@ -143,19 +143,19 @@ class MusicPlayerVC: UIViewController {
     }
     
     @objc
-    func forwardButtonTapped() {
+    private func forwardButtonTapped() {
         musicPlayer.skipToNextItem()
         updateUI()
     }
     
     @objc
-    func backwardButtonTapped() {
+    private func backwardButtonTapped() {
         musicPlayer.skipToPreviousItem()
         updateUI()
     }
     
     @objc
-    func finishButtonTapped() {
+    private func finishButtonTapped() {
         animateFinishButton()
         if timerSeconds! >= 1 {
             // Create alert
@@ -183,18 +183,18 @@ class MusicPlayerVC: UIViewController {
     }
     
     @objc
-    func itemDidChange() {
+    private func itemDidChange() {
         updateUI()
     }
     
     @objc
-    func stateDidChange() {
+    private func stateDidChange() {
         let secondsToDelay = 0.5
         perform(#selector(remotePlayPause), with: nil, afterDelay: secondsToDelay)
     }
     
     @objc
-    func remotePlayPause() {
+    private func remotePlayPause() {
         if musicPlayer.playbackState == .paused {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             timerValve = true
@@ -264,13 +264,13 @@ class MusicPlayerVC: UIViewController {
 
 //MARK: Timer
 extension MusicPlayerVC {
-    func secondsToMinutesSeconds(_ sec: Int) -> (Int, Int) {
+    private func secondsToMinutesSeconds(_ sec: Int) -> (Int, Int) {
         let min = (sec / 60)
         let sec = (sec % 60)
         return (min, sec)
     }
     
-    func makeTimeString(min: Int, sec: Int) -> String {
+    private func makeTimeString(min: Int, sec: Int) -> String {
         var timeString = ""
         timeString += String(format: "%02d", min)
         timeString += ":"
@@ -278,19 +278,19 @@ extension MusicPlayerVC {
         return timeString
     }
     
-    func setTimerLabel(_ sec: Int) {
+    private func setTimerLabel(_ sec: Int) {
         let time = secondsToMinutesSeconds(sec)
         let timeString = makeTimeString(min: time.0, sec: time.1)
         timerLabel.text = timeString
     }
     
-    func setSongDurationLabel(_ sec: Int) {
+    private func setSongDurationLabel(_ sec: Int) {
         let time = secondsToMinutesSeconds(sec)
         let timeString = makeTimeString(min: time.0, sec: time.1)
         songDuration.text = timeString
     }
     
-    func updateSongDurationLabel() {
+    private func updateSongDurationLabel() {
         songSeconds = Int(musicPlayer.nowPlayingItem!.playbackDuration)
         setSongDurationLabel(songSeconds ?? 0)
     }
@@ -300,7 +300,7 @@ extension MusicPlayerVC {
     }
     
     @objc
-    func updateTimer() {
+    private func updateTimer() {
         if timerSeconds == 1 {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             musicPlayer.pause()

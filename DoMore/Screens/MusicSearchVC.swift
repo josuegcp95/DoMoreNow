@@ -15,8 +15,8 @@ protocol MusicSearchVCDelegate: AnyObject {
 
 class MusicSearchVC: UIViewController {
     
-    let tableView = UITableView()
-    var musicLibrary = [Item]()
+    private let tableView = UITableView()
+    private var musicLibrary = [Item]()
     var duplicates = [String]()
     weak open var delegate: MusicSearchVCDelegate?
     
@@ -55,7 +55,7 @@ class MusicSearchVC: UIViewController {
         tableView.dataSource = self
     }
     
-    func fetchMusic(term: String) {
+    private func fetchMusic(term: String) {
         self.showSpinner()
         Task {
             await NetworkManager.shared.fetchMusic(term: term) { [weak self] result in
@@ -83,7 +83,7 @@ class MusicSearchVC: UIViewController {
     }
     
     @objc
-    func closeButtonTapped() {
+    private func closeButtonTapped() {
         dismiss(animated: true)
     }
 }

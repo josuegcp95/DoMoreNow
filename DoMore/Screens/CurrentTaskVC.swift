@@ -17,16 +17,16 @@ class CurrentTaskVC: UIViewController {
     
     let nameLabel = DMTitleLabel(fontSize: 35, textAlignment: .center)
     let timeLabel = DMBodyLabel(fontSize: 19, textAlignment: .center)
-    let addSongButton = DMButton(title: "Add songs", backgroundColor: .systemPink)
-    let startTaskButton = DMButton(title: "Start task", backgroundColor: .systemPink)
-    let editTaskButton = DMButton(systemImageName: SFSymbols.pencil, backgroundColor: .systemBackground, foregroundColor: .systemGray)
-    let tableView = UITableView()
+    private let addSongButton = DMButton(title: "Add songs", backgroundColor: .systemPink)
+    private let startTaskButton = DMButton(title: "Start task", backgroundColor: .systemPink)
+    private let editTaskButton = DMButton(systemImageName: SFSymbols.pencil, backgroundColor: .systemBackground, foregroundColor: .systemGray)
+    private let tableView = UITableView()
     var playlist = [Item]()
-    var tracks = [String]()
-    var imagesDict = [String: String]()
+    private var tracks = [String]()
+    private var imagesDict = [String: String]()
     var position: Int?
     var minutes: Int?
-    var musicSubscription: MusicSubscription?
+    private var musicSubscription: MusicSubscription?
     weak open var delegate: CurrentTaskVCDelegate?
     
     override func viewDidLoad() {
@@ -133,7 +133,7 @@ class CurrentTaskVC: UIViewController {
     }
     
     @objc
-    func editTaskButtonTapped() {
+    private func editTaskButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
         destVC.state = false
@@ -148,9 +148,9 @@ class CurrentTaskVC: UIViewController {
     }
     
     @objc
-    func addSongButtonTapped() {
+    private func addSongButtonTapped() {
         DispatchQueue.main.async { [self] in
-            guard NetworkReachability.shared.isNetworkAvailable() else {
+            guard NetworkReachability.shared.isConnectedToInternet() else {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
                 return
             }
@@ -159,6 +159,7 @@ class CurrentTaskVC: UIViewController {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
                 return
             }
+            
             prepareTracks()
             let destVC = MusicSearchVC()
             destVC.delegate = self
@@ -170,17 +171,21 @@ class CurrentTaskVC: UIViewController {
     }
     
     @objc
-    func startTaskButtonTapped() {
+    private func startTaskButtonTapped() {
         DispatchQueue.main.async { [self] in
-            guard NetworkReachability.shared.isNetworkAvailable() else {
+            self.showSpinner()
+            guard NetworkReachability.shared.isConnectedToInternet() else {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
+                self.hideSpinner()
                 return
             }
             
             guard musicSubscription?.canPlayCatalogContent == true else {
                 self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
+                self.hideSpinner()
                 return
             }
+            
             prepareTracks()
             prepareImages()
             let destVC = MusicPlayerVC()
@@ -189,6 +194,7 @@ class CurrentTaskVC: UIViewController {
             destVC.tracks = tracks
             destVC.imagesDict = imagesDict
             destVC.timerSeconds = seconds
+            self.hideSpinner()
             navigationController?.pushViewController(destVC, animated: true)
         }
     }
