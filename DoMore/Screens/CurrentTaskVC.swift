@@ -151,7 +151,7 @@ class CurrentTaskVC: UIViewController {
     private func addSongButtonTapped() {
         DispatchQueue.main.async { [self] in
             guard NetworkReachability.shared.isConnectedToInternet() else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
                 return
             }
             
@@ -175,7 +175,7 @@ class CurrentTaskVC: UIViewController {
         DispatchQueue.main.async { [self] in
             self.showSpinner()
             guard NetworkReachability.shared.isConnectedToInternet() else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToComplete.rawValue, buttonTitle: DMAlert.button)
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
                 self.hideSpinner()
                 return
             }
@@ -215,7 +215,7 @@ class CurrentTaskVC: UIViewController {
                 self.updateSubscriptionStatus()
                 
                 switch error {
-                case .unableToContinue:
+                case .accessDenied:
                     showAllowAccessAlert()
                 default:
                     self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
@@ -227,14 +227,14 @@ class CurrentTaskVC: UIViewController {
     private func showAllowAccessAlert() {
         DispatchQueue.main.async { [self] in
             // Create alert
-            let alert = UIAlertController(title: DMAlert.title, message: DMError.unableToContinue.rawValue, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Access Required", message: DMError.accessDenied.rawValue, preferredStyle: .alert)
             
             // Create actions
             let settingAction = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { _ in
                 /// Go to settings
                 if let settingsURL = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(settingsURL) }
             }
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { _ in
+            let cancelAction = UIAlertAction(title: "Continue", style: UIAlertAction.Style.cancel) { _ in
                 /// Do nothing
             }
             // Add actions

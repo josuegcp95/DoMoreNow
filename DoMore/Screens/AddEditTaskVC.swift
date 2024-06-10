@@ -72,7 +72,7 @@ class AddEditTaskVC: UIViewController {
     @objc
     private func saveButtonTapped() {
         guard !nameTextField.text!.isEmpty, !timeTextField.text!.isEmpty else {
-            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.bothFields.rawValue, buttonTitle: DMAlert.button)
+            self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.allFields.rawValue, buttonTitle: DMAlert.button)
             return
         }
         

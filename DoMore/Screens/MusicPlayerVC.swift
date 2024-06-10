@@ -159,16 +159,16 @@ class MusicPlayerVC: UIViewController {
         animateFinishButton()
         if timerSeconds! >= 1 {
             // Create alert
-            let alert = UIAlertController(title: "Are you sure?", message: "You are about to end your session.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Ending Session", message: "Please tap Continue to stay or Finish to end your session.", preferredStyle: .alert)
             // Create actions
-            let yesAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default) { [weak self] UIAlertAction in
+            let yesAction = UIAlertAction(title: "Finish", style: UIAlertAction.Style.default) { [weak self] UIAlertAction in
                 guard let self = self else { return }
                 /// End session
                 self.musicPlayer.stop()
                 self.notificationCenter.removeAllPendingNotificationRequests()
                 self.navigationController?.popViewController(animated: true)
             }
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { UIAlertAction in
+            let cancelAction = UIAlertAction(title: "Continue", style: UIAlertAction.Style.cancel) { UIAlertAction in
                 /// Do nothing
             }
             // Add actions

@@ -33,7 +33,7 @@ final class NetworkManager {
             })
             completed(.success(songs))
         } catch {
-            completed(.failure(.unableToComplete))
+            completed(.failure(.unavailableConnection))
     }
 }
     
@@ -44,9 +44,9 @@ final class NetworkManager {
         case .authorized:
             completed(nil)
         case .denied:
-            completed(.unableToContinue)
+            completed(.accessDenied)
         default:
-            completed(.unableToComplete)
+            completed(.unavailableConnection)
         }
     }
     
