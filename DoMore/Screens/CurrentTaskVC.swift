@@ -15,20 +15,20 @@ protocol CurrentTaskVCDelegate: AnyObject {
 
 class CurrentTaskVC: UIViewController {
     
-    let nameLabel = DMTitleLabel(fontSize: 35, textAlignment: .center)
-    let timeLabel = DMBodyLabel(fontSize: 19, textAlignment: .center)
+    weak open var delegate: CurrentTaskVCDelegate?
+    private var musicSubscription: MusicSubscription?
+    private let tableView = UITableView()
     private let addSongButton = DMButton(title: "Add songs", backgroundColor: .systemPink)
     private let startTaskButton = DMButton(title: "Start task", backgroundColor: .systemPink)
     private let editTaskButton = DMButton(systemImageName: SFSymbols.pencil, backgroundColor: .systemBackground, foregroundColor: .systemGray)
-    private let tableView = UITableView()
+    let nameLabel = DMTitleLabel(fontSize: 35, textAlignment: .center)
+    let timeLabel = DMBodyLabel(fontSize: 19, textAlignment: .center)
     var playlist = [Item]()
     private var tracks = [String]()
     private var imagesDict = [String: String]()
     var position: Int?
     var minutes: Int?
-    private var musicSubscription: MusicSubscription?
-    weak open var delegate: CurrentTaskVCDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -136,7 +136,7 @@ class CurrentTaskVC: UIViewController {
     private func editTaskButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
-        destVC.state = false
+        destVC.isNewTask = false
         destVC.title = "Edit Task"
         destVC.nameTextField.placeholder = "New name"
         destVC.timeTextField.placeholder = "New time"

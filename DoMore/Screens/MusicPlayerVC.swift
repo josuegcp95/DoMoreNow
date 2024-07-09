@@ -10,20 +10,20 @@ import MediaPlayer
 
 class MusicPlayerVC: UIViewController {
     
+    private let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    private let notificationCenter = UNUserNotificationCenter.current()
+    private var timer: Timer?
     private let artwork = DMImageView(frame: .zero)
-    private let songName = DMSubtitleLabel(fontSize: 19, textAlignment: .left)
-    private let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
-    private let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
-    private var timerLabel = DMTitleLabel(fontSize: 43, textAlignment: .center)
     private let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroundColor: .systemPink, foregroundColor: .white)
     private let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroundColor: .systemPink, foregroundColor: .white)
     private let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroundColor: .systemPink, foregroundColor: .white)
     private let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink)
-    private let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    private let notificationCenter = UNUserNotificationCenter.current()
+    private let songName = DMSubtitleLabel(fontSize: 19, textAlignment: .left)
+    private let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
+    private let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
+    private var timerLabel = DMTitleLabel(fontSize: 43, textAlignment: .center)
     var tracks = [String]()
     var imagesDict = [String: String]()
-    private var timer: Timer?
     var timerSeconds: Int?
     private var songSeconds: Int?
     private var timerValve = false

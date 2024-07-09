@@ -10,8 +10,8 @@ import UIKit
 class HomeVC: UIViewController {
     
     private let tableView = UITableView()
-    private var localLibrary: [Action] = []
     private let notificationCenter = UNUserNotificationCenter.current()
+    private var localLibrary: [Action] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,11 @@ class HomeVC: UIViewController {
                                         target: self,
                                         action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem = addButton
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: tableView.isEditing ? .done : .edit,
+                                        target: self,
+                                        action: #selector(editButtonTapped))
+        navigationItem.leftBarButtonItem = editButton
     }
     
     private func configureTableView() {
@@ -49,13 +54,19 @@ class HomeVC: UIViewController {
     private func addButtonTapped() {
         let destVC = AddEditTaskVC()
         destVC.delegate = self
-        destVC.state = true
+        destVC.isNewTask = true
         destVC.title = "Add Task"
         destVC.nameTextField.placeholder = "Task (name)"
         destVC.timeTextField.placeholder = "Time (minutes)"
         let navController = UINavigationController(rootViewController: destVC)
         navController.navigationBar.tintColor = .systemPink
         present(navController, animated: true)
+    }
+    
+    @objc
+    private func editButtonTapped() {
+        tableView.isEditing.toggle()
+        configureViewController()
     }
     
     private func requestLocalNotificationAuth() {
@@ -92,7 +103,7 @@ class HomeVC: UIViewController {
     private func saveTasks(tasks: [Action]) {
         PersistenceManager.saveTasks(tasks: tasks) { [weak self] error in
             guard let self else { return }
-            guard let error = error else { return }
+            guard let error else { return }
             self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
         }
     }
@@ -132,13 +143,26 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         destVC.minutes = task.time
         navigationController?.pushViewController(destVC, animated: true)
     }
-    
+        
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         localLibrary.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .left)
         saveTasks(tasks: localLibrary)
         isLocalLibraryEmpty()
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        localLibrary.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        saveTasks(tasks: localLibrary)
+    }
+
+     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+         return .none
+     }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
 

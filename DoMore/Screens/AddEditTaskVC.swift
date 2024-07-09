@@ -14,11 +14,11 @@ protocol AddEditTaskVCDelegate: AnyObject {
 
 class AddEditTaskVC: UIViewController {
     
+    weak open var delegate: AddEditTaskVCDelegate?
     let nameTextField = DMTextField()
     let timeTextField = DMTextField()
-    var state: Bool?
-    weak open var delegate: AddEditTaskVCDelegate?
-    
+    var isNewTask: Bool?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -86,7 +86,7 @@ class AddEditTaskVC: UIViewController {
             return
         }
         
-        if state! {
+        if isNewTask! {
             let newTask = Action(name: nameTextField.text!, time: time, songs: [])
             delegate?.didAddNewTask(task: newTask)
             dismiss(animated: true)

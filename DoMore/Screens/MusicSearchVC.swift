@@ -15,11 +15,11 @@ protocol MusicSearchVCDelegate: AnyObject {
 
 class MusicSearchVC: UIViewController {
     
+    weak open var delegate: MusicSearchVCDelegate?
     private let tableView = UITableView()
     private var musicLibrary = [Item]()
     var duplicates = [String]()
-    weak open var delegate: MusicSearchVCDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
