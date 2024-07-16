@@ -17,6 +17,7 @@ class AddEditTaskVC: UIViewController {
     weak open var delegate: AddEditTaskVCDelegate?
     let nameTextField = DMTextField()
     let timeTextField = DMTextField()
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var isNewTask: Bool?
 
     override func viewDidLoad() {
@@ -29,11 +30,7 @@ class AddEditTaskVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                           target: self,
-                                           action: #selector(cancelButtonTapped))
-        navigationItem.leftBarButtonItem = cancelButton
-        
+          
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save,
                                          target: self,
                                          action: #selector(saveButtonTapped))
@@ -43,11 +40,12 @@ class AddEditTaskVC: UIViewController {
     private func configureNameTextField() {
         view.addSubview(nameTextField)
         nameTextField.returnKeyType = .continue
+        nameTextField.addTarget(self, action: #selector(textFieldShouldReturn(sender:)), for: .primaryActionTriggered)
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 75),
-            nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: isIpad ? 285 : 65),
+            nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: isIpad ? -285 : -65),
             nameTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -58,8 +56,8 @@ class AddEditTaskVC: UIViewController {
         
         NSLayoutConstraint.activate([
             timeTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 25),
-            timeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            timeTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            timeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: isIpad ? 285 : 65),
+            timeTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: isIpad ? -285 : -65),
             timeTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -68,7 +66,7 @@ class AddEditTaskVC: UIViewController {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
-    
+        
     @objc
     private func saveButtonTapped() {
         guard !nameTextField.text!.isEmpty, !timeTextField.text!.isEmpty else {
@@ -89,16 +87,17 @@ class AddEditTaskVC: UIViewController {
         if isNewTask! {
             let newTask = Action(name: nameTextField.text!, time: time, songs: [])
             delegate?.didAddNewTask(task: newTask)
-            dismiss(animated: true)
+            navigationController?.popViewController(animated: true)
         } else {
             delegate?.didEditCurrentTask(name: nameTextField.text!, time: time)
-            dismiss(animated: true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
     @objc
-    private func cancelButtonTapped() {
-        dismiss(animated: true)
+    func textFieldShouldReturn(sender: UITextField) {
+        nameTextField.resignFirstResponder()
+        timeTextField.becomeFirstResponder()
     }
 }
 

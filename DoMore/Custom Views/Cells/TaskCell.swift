@@ -12,6 +12,7 @@ class TaskCell: UITableViewCell {
     static let reuseID = "TaskCell"
     let nameLabel = DMTitleLabel(fontSize: 29, textAlignment: .left)
     let timeLabel = DMBodyLabel(fontSize: 23, textAlignment: .left)
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,17 +33,28 @@ class TaskCell: UITableViewCell {
         addSubview(timeLabel)
         
         nameLabel.textColor = .systemPink
-        
         accessoryType = .disclosureIndicator
         
-        NSLayoutConstraint.activate([
-            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
-            nameLabel.widthAnchor.constraint(equalToConstant: 160),
-            
-            timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            timeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 12),
-            timeLabel.widthAnchor.constraint(equalToConstant: 120)
-        ])
+        if isIpad {
+            NSLayoutConstraint.activate([
+                nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18), // REVIEW
+                nameLabel.widthAnchor.constraint(equalToConstant: 160),
+                
+                timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -72),
+                timeLabel.widthAnchor.constraint(equalToConstant: 120)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 14),
+                nameLabel.widthAnchor.constraint(equalToConstant: 160),
+                
+                timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                timeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+                timeLabel.widthAnchor.constraint(equalToConstant: 120)
+            ])
+        }
     }
 }

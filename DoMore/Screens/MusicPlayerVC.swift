@@ -26,12 +26,13 @@ class MusicPlayerVC: UIViewController {
     var imagesDict = [String: String]()
     var timerSeconds: Int?
     private var songSeconds: Int?
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     private var timerValve = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureUI()
+        configureViews()
         configureMusicPlayer()
         setTimerLabel(timerSeconds!)
         setupTimer()
@@ -44,12 +45,12 @@ class MusicPlayerVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "DoMore..."
+        title = "DoMoreNow..."
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    private func configureUI() {
+    private func configureViews() {
         view.addSubviews(artwork, songName, artistName, songDuration, timerLabel, playPauseButton, backwardButton, forwardButton, finishButton)
         playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped), for: .touchUpInside)
         playPauseButton.configuration?.cornerStyle = .large
@@ -59,12 +60,12 @@ class MusicPlayerVC: UIViewController {
         finishButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
         
         NSLayoutConstraint.activate([
-            artwork.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            artwork.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isIpad ? 96 : 12),
             artwork.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             artwork.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             artwork.heightAnchor.constraint(equalToConstant: 250),
             
-            songName.topAnchor.constraint(equalTo: artwork.bottomAnchor, constant: 5),
+            songName.topAnchor.constraint(equalTo: artwork.bottomAnchor, constant: 10),
             songName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
             songName.widthAnchor.constraint(equalToConstant: 250),
             
@@ -97,12 +98,12 @@ class MusicPlayerVC: UIViewController {
             
             finishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             finishButton.topAnchor.constraint(equalTo: playPauseButton.bottomAnchor, constant: 15),
-            finishButton.widthAnchor.constraint(equalToConstant: 200),
+            finishButton.widthAnchor.constraint(equalToConstant: 180),
             finishButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
-    private func updateUI() {
+    private func updateViews() {
         songName.text = musicPlayer.nowPlayingItem?.title ?? "Not playing"
         artistName.text = musicPlayer.nowPlayingItem?.artist ?? ""
         guard let title = musicPlayer.nowPlayingItem?.title else { return }
@@ -119,7 +120,7 @@ class MusicPlayerVC: UIViewController {
         musicPlayer.shuffleMode = .songs
         musicPlayer.prepareToPlay()
         musicPlayer.play()
-        updateUI()
+        updateViews()
     }
     
     @objc
@@ -145,13 +146,13 @@ class MusicPlayerVC: UIViewController {
     @objc
     private func forwardButtonTapped() {
         musicPlayer.skipToNextItem()
-        updateUI()
+        updateViews()
     }
     
     @objc
     private func backwardButtonTapped() {
         musicPlayer.skipToPreviousItem()
-        updateUI()
+        updateViews()
     }
     
     @objc
@@ -184,7 +185,7 @@ class MusicPlayerVC: UIViewController {
     
     @objc
     private func itemDidChange() {
-        updateUI()
+        updateViews()
     }
     
     @objc

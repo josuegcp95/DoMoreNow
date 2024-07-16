@@ -7,6 +7,7 @@
 
 import UIKit
 import MusicKit
+import SwiftUI
 
 protocol CurrentTaskVCDelegate: AnyObject {
     func didUpdatePlaylist(music: [Item], indexPath: Int)
@@ -28,6 +29,7 @@ class CurrentTaskVC: UIViewController {
     private var imagesDict = [String: String]()
     var position: Int?
     var minutes: Int?
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,8 +96,8 @@ class CurrentTaskVC: UIViewController {
         
         NSLayoutConstraint.activate([
             addSongButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25),
-            addSongButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            addSongButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+            addSongButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isIpad ? 285 : 65),
+            addSongButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isIpad ? -285 : -65),
             addSongButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -107,8 +109,8 @@ class CurrentTaskVC: UIViewController {
         
         NSLayoutConstraint.activate([
             startTaskButton.topAnchor.constraint(equalTo: addSongButton.bottomAnchor, constant: 15),
-            startTaskButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            startTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+            startTaskButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: isIpad ? 285 : 65),
+            startTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: isIpad ? -285 : -65),
             startTaskButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -128,7 +130,7 @@ class CurrentTaskVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: startTaskButton.bottomAnchor, constant: 35),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            tableView.heightAnchor.constraint(equalToConstant: 350),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
         ])
     }
     
@@ -142,9 +144,7 @@ class CurrentTaskVC: UIViewController {
         destVC.timeTextField.placeholder = "New time"
         destVC.nameTextField.text = nameLabel.text
         destVC.timeTextField.text = "\(minutes!)"
-        let navController = UINavigationController(rootViewController: destVC)
-        navController.navigationBar.tintColor = .systemPink
-        present(navController, animated: true)
+        navigationController?.pushViewController(destVC, animated: true)
     }
     
     @objc
@@ -155,8 +155,15 @@ class CurrentTaskVC: UIViewController {
                 return
             }
             
+            guard musicSubscription?.canBecomeSubscriber == false else {
+                let offerView = MusicSubscriptionView()
+                let offerVC = UIHostingController(rootView: offerView)
+                present(offerVC, animated: true)
+                return
+            }
+            
             guard musicSubscription?.canPlayCatalogContent == true else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
+                showAllowAccessAlert()
                 return
             }
             
@@ -174,15 +181,24 @@ class CurrentTaskVC: UIViewController {
     private func startTaskButtonTapped() {
         DispatchQueue.main.async { [self] in
             self.showSpinner()
+            
             guard NetworkReachability.shared.isConnectedToInternet() else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
                 self.hideSpinner()
+                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
+                return
+            }
+            
+            guard musicSubscription?.canBecomeSubscriber == false else {
+                self.hideSpinner()
+                let offerView = MusicSubscriptionView()
+                let offerVC = UIHostingController(rootView: offerView)
+                present(offerVC, animated: true)
                 return
             }
             
             guard musicSubscription?.canPlayCatalogContent == true else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unableToProceed.rawValue, buttonTitle: DMAlert.button)
                 self.hideSpinner()
+                showAllowAccessAlert()
                 return
             }
             
@@ -199,27 +215,27 @@ class CurrentTaskVC: UIViewController {
         }
     }
     
-    private func updateSubscriptionStatus() {
-        Task {
-            for await subscription in MusicSubscription.subscriptionUpdates {
-                musicSubscription = subscription
-            }
-        }
-    }
-    
     private func requestMusicKitAuth() {
         Task {
             await NetworkManager.shared.requestAuthorization { [weak self] error in
                 guard let self else { return }
                 guard let error else { self.updateSubscriptionStatus(); return }
                 self.updateSubscriptionStatus()
-                
+                                
                 switch error {
                 case .accessDenied:
                     showAllowAccessAlert()
                 default:
                     self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
                 }
+            }
+        }
+    }
+    
+    private func updateSubscriptionStatus() {
+        Task {
+            for await subscription in MusicSubscription.subscriptionUpdates {
+                musicSubscription = subscription
             }
         }
     }

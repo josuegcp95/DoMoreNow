@@ -22,8 +22,9 @@ class DMImageView: UIImageView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 10
+        contentMode = .scaleAspectFit
         clipsToBounds = true
+        layer.cornerRadius = 10
     }
     
     func downloadImage(fromURL url: String) {

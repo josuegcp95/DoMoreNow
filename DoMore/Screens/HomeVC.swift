@@ -50,25 +50,6 @@ class HomeVC: UIViewController {
         tableView.dataSource = self
     }
     
-    @objc
-    private func addButtonTapped() {
-        let destVC = AddEditTaskVC()
-        destVC.delegate = self
-        destVC.isNewTask = true
-        destVC.title = "Add Task"
-        destVC.nameTextField.placeholder = "Task (name)"
-        destVC.timeTextField.placeholder = "Time (minutes)"
-        let navController = UINavigationController(rootViewController: destVC)
-        navController.navigationBar.tintColor = .systemPink
-        present(navController, animated: true)
-    }
-    
-    @objc
-    private func editButtonTapped() {
-        tableView.isEditing.toggle()
-        configureViewController()
-    }
-    
     private func requestLocalNotificationAuth() {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound,]) { [weak self] (granted, error) in
             guard let self else { return }
@@ -77,6 +58,31 @@ class HomeVC: UIViewController {
                     self.presentDMAlertOnMainThread(title: DMAlert.title, message: "Error occurred requesting local notification authorization.", buttonTitle: DMAlert.button)
                 }
             }
+        }
+    }
+    
+    @objc
+    private func addButtonTapped() {
+        let destVC = AddEditTaskVC()
+        destVC.delegate = self
+        destVC.isNewTask = true
+        destVC.title = "Add Task"
+        destVC.nameTextField.placeholder = "Task (name)"
+        destVC.timeTextField.placeholder = "Time (minutes)"
+        navigationController?.pushViewController(destVC, animated: true)
+    }
+    
+    @objc
+    private func editButtonTapped() {
+        tableView.isEditing.toggle()
+        configureViewController()
+    }
+    
+    private func saveTasks(tasks: [Action]) {
+        PersistenceManager.saveTasks(tasks: tasks) { [weak self] error in
+            guard let self else { return }
+            guard let error else { return }
+            self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
         }
     }
     
@@ -99,15 +105,7 @@ class HomeVC: UIViewController {
             }
         }
     }
-    
-    private func saveTasks(tasks: [Action]) {
-        PersistenceManager.saveTasks(tasks: tasks) { [weak self] error in
-            guard let self else { return }
-            guard let error else { return }
-            self.presentDMAlertOnMainThread(title: DMAlert.title, message: error.rawValue, buttonTitle: DMAlert.button)
-        }
-    }
-    
+        
     private func isLocalLibraryEmpty() {
         if localLibrary.isEmpty {
             self.showEmptyStateView(with: "You currently have no tasks...", in: self.view)
@@ -158,7 +156,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
 
      func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-         return .none
+         return tableView.isEditing ? .none : .delete
      }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

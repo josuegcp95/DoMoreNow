@@ -14,6 +14,7 @@ class SearchCell: UITableViewCell {
     let songName = DMSubtitleLabel(fontSize: 17, textAlignment: .left)
     let artistName = DMBodyLabel(fontSize: 15, textAlignment: .left)
     let addButton = DMButton(systemImageName: SFSymbols.plus, backgroundColor: .systemBackground, foregroundColor: .systemGray)
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var isOnLibrary = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -48,7 +49,7 @@ class SearchCell: UITableViewCell {
         addSubview(songName)
         addSubview(artistName)
         addSubview(addButton)
-        
+                
         songName.adjustsFontSizeToFitWidth = true
         songName.minimumScaleFactor = 0.85
         artistName.adjustsFontSizeToFitWidth = true
@@ -71,7 +72,7 @@ class SearchCell: UITableViewCell {
             artistName.heightAnchor.constraint(equalToConstant: 20),
             
             addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -14),
+            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: isIpad ? -152 : -18),
             addButton.widthAnchor.constraint(equalToConstant: 20),
             addButton.heightAnchor.constraint(equalToConstant: 20)
         ])

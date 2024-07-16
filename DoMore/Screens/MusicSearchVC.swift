@@ -19,6 +19,7 @@ class MusicSearchVC: UIViewController {
     private let tableView = UITableView()
     private var musicLibrary = [Item]()
     var duplicates = [String]()
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class MusicSearchVC: UIViewController {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close,
                                           target: self,
                                           action: #selector(closeButtonTapped))
+        closeButton.tintColor = .systemPink
         navigationItem.leftBarButtonItem = closeButton
     }
     
@@ -48,8 +50,9 @@ class MusicSearchVC: UIViewController {
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: isIpad ? 225 : 75, right: 0)
         tableView.rowHeight = 60
+        tableView.setContentOffset(.zero, animated: true)
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseID)
         tableView.delegate = self
         tableView.dataSource = self
