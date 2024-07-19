@@ -60,12 +60,12 @@ class MusicPlayerVC: UIViewController {
         finishButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
         
         NSLayoutConstraint.activate([
-            artwork.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isIpad ? 96 : 12),
+            artwork.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isIpad ? 24 : 12),
             artwork.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             artwork.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            artwork.heightAnchor.constraint(equalToConstant: 250),
+            artwork.heightAnchor.constraint(equalToConstant: isIpad ? 450 : 250),
             
-            songName.topAnchor.constraint(equalTo: artwork.bottomAnchor, constant: 10),
+            songName.topAnchor.constraint(equalTo: artwork.bottomAnchor, constant: isIpad ? 20 : 10),
             songName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
             songName.widthAnchor.constraint(equalToConstant: 250),
             

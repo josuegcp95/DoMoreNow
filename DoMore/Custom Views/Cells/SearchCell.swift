@@ -11,11 +11,19 @@ class SearchCell: UITableViewCell {
     
     static let reuseID = "SearchCell"
     let artwork = DMImageView(frame: .zero)
-    let songName = DMSubtitleLabel(fontSize: 17, textAlignment: .left)
-    let artistName = DMBodyLabel(fontSize: 15, textAlignment: .left)
     let addButton = DMButton(systemImageName: SFSymbols.plus, backgroundColor: .systemBackground, foregroundColor: .systemGray)
     private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var isOnLibrary = false
+    
+    lazy var songName: DMSubtitleLabel = {
+        let songName = DMSubtitleLabel(fontSize: isIpad ? 21 : 17, textAlignment: .left)
+        return songName
+    }()
+    
+    lazy var artistName: DMBodyLabel = {
+        let artistName = DMBodyLabel(fontSize: isIpad ? 19 : 15, textAlignment: .left)
+        return artistName
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,8 +35,6 @@ class SearchCell: UITableViewCell {
     }
     
     func set(song: Item) {
-//        let imageIcon = MockData.images.randomElement()
-//        artwork.image = imageIcon
         artwork.downloadImage(fromURL: song.imageURL!.absoluteString)
         songName.text = song.name
         artistName.text = song.artist
@@ -56,23 +62,23 @@ class SearchCell: UITableViewCell {
         artistName.minimumScaleFactor = 0.85
         
         NSLayoutConstraint.activate([
-            artwork.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            artwork.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
-            artwork.widthAnchor.constraint(equalToConstant: 50),
-            artwork.heightAnchor.constraint(equalToConstant: 50),
+            artwork.centerYAnchor.constraint(equalTo: centerYAnchor),
+            artwork.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            artwork.widthAnchor.constraint(equalToConstant: isIpad ? 65 : 50),
+            artwork.heightAnchor.constraint(equalToConstant: isIpad ? 65 : 50),
             
-            songName.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            songName.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             songName.leadingAnchor.constraint(equalTo: artwork.trailingAnchor, constant: 10),
-            songName.widthAnchor.constraint(equalToConstant: 250),
+            songName.widthAnchor.constraint(equalToConstant: isIpad ? 450 : 250),
             songName.heightAnchor.constraint(equalToConstant: 20),
             
-            artistName.topAnchor.constraint(equalTo: songName.bottomAnchor, constant: 0),
+            artistName.topAnchor.constraint(equalTo: songName.bottomAnchor, constant: isIpad ? 2.5 : 0),
             artistName.leadingAnchor.constraint(equalTo: artwork.trailingAnchor, constant: 10),
-            artistName.widthAnchor.constraint(equalToConstant: 250),
+            artistName.widthAnchor.constraint(equalToConstant: isIpad ? 450 : 250),
             artistName.heightAnchor.constraint(equalToConstant: 20),
             
-            addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: isIpad ? -152 : -18),
+            addButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: isIpad ? -24 : -16),
             addButton.widthAnchor.constraint(equalToConstant: 20),
             addButton.heightAnchor.constraint(equalToConstant: 20)
         ])

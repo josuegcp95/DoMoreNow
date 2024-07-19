@@ -37,21 +37,21 @@ class TaskCell: UITableViewCell {
         
         if isIpad {
             NSLayoutConstraint.activate([
-                nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-                nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18), // REVIEW
+                nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 18),
                 nameLabel.widthAnchor.constraint(equalToConstant: 160),
                 
-                timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-                timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -72),
+                timeLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -72),
                 timeLabel.widthAnchor.constraint(equalToConstant: 120)
             ])
         } else {
             NSLayoutConstraint.activate([
-                nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-                nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 14),
+                nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+                nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
                 nameLabel.widthAnchor.constraint(equalToConstant: 160),
                 
-                timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                timeLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
                 timeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
                 timeLabel.widthAnchor.constraint(equalToConstant: 120)
             ])

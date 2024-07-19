@@ -23,11 +23,13 @@ class DMImageView: UIImageView {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         contentMode = .scaleAspectFit
+
         clipsToBounds = true
         layer.cornerRadius = 10
     }
     
     func downloadImage(fromURL url: String) {
+//        image = MockData.images.randomElement()
         Task { image = await NetworkManager.shared.downloadImage(from: url) ?? placeholderImage }
     }
 }

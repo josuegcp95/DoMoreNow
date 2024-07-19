@@ -12,6 +12,7 @@ class HomeVC: UIViewController {
     private let tableView = UITableView()
     private let notificationCenter = UNUserNotificationCenter.current()
     private var localLibrary: [Action] = []
+    private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,15 +37,15 @@ class HomeVC: UIViewController {
         navigationItem.rightBarButtonItem = addButton
         
         let editButton = UIBarButtonItem(barButtonSystemItem: tableView.isEditing ? .done : .edit,
-                                        target: self,
-                                        action: #selector(editButtonTapped))
+                                         target: self,
+                                         action: #selector(editButtonTapped))
         navigationItem.leftBarButtonItem = editButton
     }
     
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        tableView.rowHeight = 80
+        tableView.rowHeight = isIpad ? 100 : 80
         tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseID)
         tableView.delegate = self
         tableView.dataSource = self
@@ -105,7 +106,7 @@ class HomeVC: UIViewController {
             }
         }
     }
-        
+    
     private func isLocalLibraryEmpty() {
         if localLibrary.isEmpty {
             self.showEmptyStateView(with: "You currently have no tasks...", in: self.view)
@@ -141,7 +142,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         destVC.minutes = task.time
         navigationController?.pushViewController(destVC, animated: true)
     }
-        
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         localLibrary.remove(at: indexPath.row)
@@ -154,10 +155,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         localLibrary.swapAt(sourceIndexPath.row, destinationIndexPath.row)
         saveTasks(tasks: localLibrary)
     }
-
-     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-         return tableView.isEditing ? .none : .delete
-     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return tableView.isEditing ? .none : .delete
+    }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true

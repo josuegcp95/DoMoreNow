@@ -19,7 +19,7 @@ class AddEditTaskVC: UIViewController {
     let timeTextField = DMTextField()
     private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
     var isNewTask: Bool?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -30,7 +30,7 @@ class AddEditTaskVC: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-          
+        
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save,
                                          target: self,
                                          action: #selector(saveButtonTapped))
@@ -66,7 +66,7 @@ class AddEditTaskVC: UIViewController {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
     }
-        
+    
     @objc
     private func saveButtonTapped() {
         guard !nameTextField.text!.isEmpty, !timeTextField.text!.isEmpty else {

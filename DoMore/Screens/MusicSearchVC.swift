@@ -20,7 +20,7 @@ class MusicSearchVC: UIViewController {
     private var musicLibrary = [Item]()
     var duplicates = [String]()
     private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -51,7 +51,7 @@ class MusicSearchVC: UIViewController {
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: isIpad ? 225 : 75, right: 0)
-        tableView.rowHeight = 60
+        tableView.rowHeight = isIpad ? 80 : 70
         tableView.setContentOffset(.zero, animated: true)
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseID)
         tableView.delegate = self
@@ -87,7 +87,11 @@ class MusicSearchVC: UIViewController {
     
     @objc
     private func closeButtonTapped() {
-        dismiss(animated: true)
+        if isIpad {
+            navigationController?.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
     }
 }
 

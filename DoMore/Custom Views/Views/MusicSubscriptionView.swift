@@ -29,7 +29,7 @@ struct MusicSubscriptionView: View {
                 dismiss()
             }
             label: {
-                Text("Dismiss Offer")
+                Text("Dismiss")
                      .bold()
                      .frame(width: 220, height: 44)
                      .background(Color.pink)

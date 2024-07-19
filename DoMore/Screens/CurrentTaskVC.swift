@@ -30,7 +30,7 @@ class CurrentTaskVC: UIViewController {
     var position: Int?
     var minutes: Int?
     private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -119,7 +119,7 @@ class CurrentTaskVC: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
-        tableView.rowHeight = 70
+        tableView.rowHeight = isIpad ? 80 : 70
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: PlaylistCell.reuseID)
         tableView.delegate = self
         tableView.dataSource = self
@@ -171,9 +171,14 @@ class CurrentTaskVC: UIViewController {
             let destVC = MusicSearchVC()
             destVC.delegate = self
             destVC.duplicates = tracks
-            let navController = UINavigationController(rootViewController: destVC)
-            navController.navigationBar.tintColor = .systemPink
-            present(navController, animated: true)
+            
+            if isIpad {
+                navigationController?.pushViewController(destVC, animated: true)
+            } else {
+                let navController = UINavigationController(rootViewController: destVC)
+                navController.navigationBar.tintColor = .systemPink
+                present(navController, animated: true)
+            }
         }
     }
     
@@ -210,7 +215,7 @@ class CurrentTaskVC: UIViewController {
             destVC.tracks = tracks
             destVC.imagesDict = imagesDict
             destVC.timerSeconds = seconds
-            self.hideSpinner()
+            hideSpinner()
             navigationController?.pushViewController(destVC, animated: true)
         }
     }
@@ -221,7 +226,7 @@ class CurrentTaskVC: UIViewController {
                 guard let self else { return }
                 guard let error else { self.updateSubscriptionStatus(); return }
                 self.updateSubscriptionStatus()
-                                
+                
                 switch error {
                 case .accessDenied:
                     showAllowAccessAlert()
