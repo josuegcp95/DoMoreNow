@@ -35,7 +35,7 @@ class MusicPlayerVC: UIViewController {
         configureViews()
         configureMusicPlayer()
         setTimerLabel(timerSeconds!)
-        setupTimer()
+        setTimer()
         setLocalNotificationAlert(timerSeconds!)
         NotificationCenter.default.post(name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(itemDidChange), name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
@@ -130,7 +130,7 @@ class MusicPlayerVC: UIViewController {
                 playPauseButton.setImage(UIImage(systemName: SFSymbols.pause), for: .normal)
                 musicPlayer.play()
                 timerValve = false
-                setupTimer()
+                setTimer()
                 setLocalNotificationAlert(timerSeconds!)
             }
         } else {
@@ -206,10 +206,29 @@ class MusicPlayerVC: UIViewController {
                 playPauseButton.setImage(UIImage(systemName: SFSymbols.pause), for: .normal)
                 if timerValve {
                     timerValve = false
-                    setupTimer()
+                    setTimer()
                     setLocalNotificationAlert(timerSeconds!)
                 }
             }
+        }
+    }
+    
+    private func presentSessionEndedAlert() {
+        if timerSeconds! <= 1 {
+            // Create alert
+            let alert = UIAlertController(title: "Session has ended", message: "Please tap Continue to exit.", preferredStyle: .alert)
+            // Create actions
+            let continueAction = UIAlertAction(title: "Continue", style: UIAlertAction.Style.default) { [weak self] UIAlertAction in
+                guard let self = self else { return }
+                /// Exit session
+                self.musicPlayer.stop()
+                self.notificationCenter.removeAllPendingNotificationRequests()
+                self.navigationController?.popViewController(animated: true)
+            }
+            alert.addAction(continueAction)
+            
+            // Present alert
+            self.present(alert, animated: true)
         }
     }
     
@@ -220,10 +239,10 @@ class MusicPlayerVC: UIViewController {
                 
                 /// Content
                 let content = UNMutableNotificationContent()
-                content.title = "You have finished your task"
+                content.title = "You've completed your task"
                 content.body = "You're doing great!"
-                let soundName = UNNotificationSoundName("ns1.wav")
-                content.sound = UNNotificationSound(named: soundName)
+                let sound = UNNotificationSoundName("ns1.wav")
+                content.sound = UNNotificationSound(named: sound)
                 
                 /// Trigger
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(sec), repeats: false)
@@ -296,7 +315,7 @@ extension MusicPlayerVC {
         setSongDurationLabel(songSeconds ?? 0)
     }
     
-    private func setupTimer() {
+    private func setTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
@@ -306,6 +325,7 @@ extension MusicPlayerVC {
             playPauseButton.setImage(UIImage(systemName: SFSymbols.play), for: .normal)
             musicPlayer.pause()
             timer?.invalidate()
+            presentSessionEndedAlert()
         }
         songSeconds! -= 1
         setSongDurationLabel(songSeconds!)
