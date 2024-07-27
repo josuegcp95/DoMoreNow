@@ -17,10 +17,12 @@ class DMButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    convenience init (title: String, backgroundColor: UIColor) {
+        
+    convenience init (title: String, backgroundColor: UIColor, fontSize: CGFloat = 17) {
         self.init(frame: .zero)
-        configuration?.title = title
+        var container = AttributeContainer()
+        container.font = UIFont.boldSystemFont(ofSize: fontSize)
+        configuration?.attributedTitle = AttributedString(title, attributes: container)
         configuration?.baseBackgroundColor = backgroundColor
         configuration?.baseForegroundColor = .white
     }

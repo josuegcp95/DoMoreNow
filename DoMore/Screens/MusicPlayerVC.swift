@@ -17,7 +17,7 @@ class MusicPlayerVC: UIViewController {
     private let playPauseButton = DMButton(systemImageName: SFSymbols.pause, backgroundColor: .systemPink, foregroundColor: .white)
     private let backwardButton = DMButton(systemImageName: SFSymbols.backward, backgroundColor: .systemPink, foregroundColor: .white)
     private let forwardButton = DMButton(systemImageName: SFSymbols.forward, backgroundColor: .systemPink, foregroundColor: .white)
-    private let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink)
+    private let finishButton = DMButton(title: "FINISH", backgroundColor: .systemPink, fontSize: 19)
     private let songName = DMSubtitleLabel(fontSize: 19, textAlignment: .left)
     private let artistName = DMBodyLabel(fontSize: 17, textAlignment: .left)
     private let songDuration = DMBodyLabel(fontSize: 19, textAlignment: .center)
@@ -57,7 +57,6 @@ class MusicPlayerVC: UIViewController {
         backwardButton.addTarget(self, action: #selector(backwardButtonTapped), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
         finishButton.addTarget(self, action: #selector(finishButtonTapped), for: .touchUpInside)
-        finishButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
         
         NSLayoutConstraint.activate([
             artwork.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: isIpad ? 24 : 12),

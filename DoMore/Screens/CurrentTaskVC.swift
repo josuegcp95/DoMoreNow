@@ -91,7 +91,6 @@ class CurrentTaskVC: UIViewController {
     
     private func configureAddSongButton() {
         view.addSubview(addSongButton)
-        addSongButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         addSongButton.addTarget(self, action: #selector(addSongButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -104,7 +103,6 @@ class CurrentTaskVC: UIViewController {
     
     private func configureStartTaskButton() {
         view.addSubview(startTaskButton)
-        startTaskButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         startTaskButton.addTarget(self, action: #selector(startTaskButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
