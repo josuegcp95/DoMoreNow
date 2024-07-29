@@ -108,8 +108,6 @@ class MusicPlayerVC: UIViewController {
         guard let title = musicPlayer.nowPlayingItem?.title else { return }
         guard let imageURL = imagesDict[title] else { return }
         artwork.downloadImage(fromURL: imageURL)
-        //        let imageIcon = MockData.images.randomElement()
-        //        artwork.image = imageIcon
         updateSongDurationLabel()
     }
     

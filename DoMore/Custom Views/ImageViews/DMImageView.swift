@@ -22,7 +22,9 @@ class DMImageView: UIImageView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
+//        contentMode = .scaleAspectFill
         contentMode = .scaleAspectFit
+
 
         clipsToBounds = true
         layer.cornerRadius = 10
