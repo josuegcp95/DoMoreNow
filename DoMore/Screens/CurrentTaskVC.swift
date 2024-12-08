@@ -30,6 +30,7 @@ class CurrentTaskVC: UIViewController {
     var position: Int?
     var minutes: Int?
     private let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+    private var accessAllowed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,23 +149,21 @@ class CurrentTaskVC: UIViewController {
     @objc
     private func addSongButtonTapped() {
         DispatchQueue.main.async { [self] in
+            
             guard NetworkReachability.shared.isConnectedToInternet() else {
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
+                presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
                 return
             }
             
-            guard musicSubscription?.canBecomeSubscriber == false else {
+            guard accessAllowed else { showAllowAccessAlert(); return }
+            
+            if (musicSubscription?.canPlayCatalogContent == false) {
                 let offerView = MusicSubscriptionView()
                 let offerVC = UIHostingController(rootView: offerView)
                 present(offerVC, animated: true)
                 return
             }
-            
-            guard musicSubscription?.canPlayCatalogContent == true else {
-                showAllowAccessAlert()
-                return
-            }
-            
+                
             prepareTracks()
             let destVC = MusicSearchVC()
             destVC.delegate = self
@@ -183,25 +182,25 @@ class CurrentTaskVC: UIViewController {
     @objc
     private func startTaskButtonTapped() {
         DispatchQueue.main.async { [self] in
-            self.showSpinner()
+            showSpinner()
             
             guard NetworkReachability.shared.isConnectedToInternet() else {
-                self.hideSpinner()
-                self.presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
+                hideSpinner()
+                presentDMAlertOnMainThread(title: DMAlert.title, message: DMError.unavailableConnection.rawValue, buttonTitle: DMAlert.button)
                 return
             }
             
-            guard musicSubscription?.canBecomeSubscriber == false else {
+            guard accessAllowed else {
+                hideSpinner()
+                showAllowAccessAlert()
+                return
+            }
+            
+            if (musicSubscription?.canPlayCatalogContent == false) {
                 self.hideSpinner()
                 let offerView = MusicSubscriptionView()
                 let offerVC = UIHostingController(rootView: offerView)
                 present(offerVC, animated: true)
-                return
-            }
-            
-            guard musicSubscription?.canPlayCatalogContent == true else {
-                self.hideSpinner()
-                showAllowAccessAlert()
                 return
             }
             
@@ -222,7 +221,10 @@ class CurrentTaskVC: UIViewController {
         Task {
             await NetworkManager.shared.requestAuthorization { [weak self] error in
                 guard let self else { return }
-                guard let error else { self.updateSubscriptionStatus(); return }
+                guard let error else { self.updateSubscriptionStatus();
+                    accessAllowed = true
+                    return
+                }
                 self.updateSubscriptionStatus()
                 
                 switch error {
